@@ -188,6 +188,7 @@ public abstract class Tools {
       System.out.println("5 - Ver todos los libros");
       System.out.println("6 - Ver sólo los libros disponibles");
       System.out.println("7 - Ver sólo los libros sin reservas\t[UNDER CONSTRUCTION]");
+      System.out.println("8 - Ver todos los libros reservados");
       System.out.println();
       System.out.println("\tGESTIONAR USUARIOS Y ADMINISTRADORES");
       System.out.println("11 - Añadir usuario");
@@ -215,6 +216,8 @@ public abstract class Tools {
         case "6": biblioteca.mostrarDisponibles();
                   break;
         case "7": enConstruccion();
+                  break;
+        case "8": biblioteca.mostrarLibrosReservados();
                   break;
         case "11":User.añadirUsuario(biblioteca);
                   break;

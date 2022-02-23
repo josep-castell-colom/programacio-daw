@@ -121,6 +121,23 @@ public class Biblioteca {
     Tools.continuar();
   }
 
+  public void mostrarLibrosReservados(){
+    Tools.br();
+    System.out.println("\t\tTODOS LOS LIBROS RESERVADOS");
+    Tools.br();
+    if(this.getListaUsuarios().size() > 0){
+      for(int i = 0; i < this.getListaUsuarios().size(); i ++){
+        System.out.println("[+] Mostrando libros reservados por " + this.getListaUsuarios().get(i).getNombre());
+        for(int j = 0; j < this.getListaUsuarios().get(i).getLibrosReservados().size(); j ++){
+          Tools.br();
+          System.out.println(this.getListaUsuarios().get(i).getLibrosReservados().get(j));
+          Tools.br();
+        }
+    }
+    }
+    Tools.br();
+  }
+
   public void mostrarUsuarios(){
     if(this.getListaUsuarios().size() > 0){
       Tools.br();
