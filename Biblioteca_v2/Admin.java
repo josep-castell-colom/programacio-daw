@@ -63,16 +63,18 @@ public class Admin extends Persona {
       if(nif.equals(biblioteca.getListaAdmins().get(j).getNif())){
         found = true;
         Tools.br();
-        System.out.println("[!] Está a punto de eliminar el siguiente administrador:");
+        System.out.println("\n[!] Está a punto de eliminar el siguiente administrador:\n");
         System.out.println(biblioteca.getListaAdmins().get(j));
         Tools.br();
         if(Tools.confirmar()){
           biblioteca.getListaAdmins().remove(biblioteca.getListaAdmins().get(j));
-          System.out.println("[+] Administrador eliminado");
+          Tools.br();
+          System.out.println("\n[+] Administrador eliminado\n");
         } else {
-          System.out.println("[-] Operación interrumpida");
-          Tools.continuar();
+          Tools.br();
+          System.out.println("\n[-] Operación interrumpida\n");
         }
+        Tools.continuar();
         j = biblioteca.getListaAdmins().size();
       } 
     }

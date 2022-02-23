@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public abstract class Tools {
   public static Scanner input = new Scanner(System.in);
+  private static Pair pair = new Pair();
 
   public static void portada(){
     System.out.println();
@@ -80,6 +81,15 @@ public abstract class Tools {
     return okNum;
   }
 
+  public static void noEncontrar(int posicion){
+    if(posicion == -1){
+      br();
+      System.out.println("\n[-] Lo sentimos, el libro no está entre nuestros títulos\n");
+      br();
+      continuar();
+    }
+  }
+
   public static void mainMenu(Biblioteca biblioteca){
     br();
     System.out.println();
@@ -96,11 +106,19 @@ public abstract class Tools {
       System.out.print("> ");
       String opt = input.nextLine();
       switch(opt){
-        case "1": userMenu(biblioteca);
+        case "1": pair = Persona.validar(biblioteca);
+                  if(pair.getValid()){
+                    Main.setCurrentUser(pair.getUser());
+                    userMenu(biblioteca);
+                  }
                   break;
         case "2": User.añadirUsuario(biblioteca);
                   break;
-        case "3": adminMenu(biblioteca);
+        case "3": pair = Persona.validar(biblioteca);
+                  if(pair.getValid()){
+                    Main.setCurrentAdmin(pair.getAdmin());
+                    adminMenu(biblioteca);
+                  }
                   break;
         case "0": Main.setOn(false);
                   br();
@@ -119,7 +137,7 @@ public abstract class Tools {
     System.out.println("\t\tMENÚ DE USUARIO");
     br();
       System.out.println("1 - Reservar libro");
-      System.out.println("2 - Devolver libro\t\t\t[UNDER CONSTRUCTION]");
+      System.out.println("2 - Devolver libro");
       System.out.println("3 - Buscar libro por ISBN");
       System.out.println("4 - Buscar libro por título");
       System.out.println("5 - Ver todos los libros");
@@ -132,9 +150,9 @@ public abstract class Tools {
       switch (opt){
         case "1": Main.getCurrentUser().reservarLibro(biblioteca);
                   break;
-        case "2": enConstruccion();
+        case "2": Main.getCurrentUser().devolverLibro(biblioteca.getListaLibros());
                   break;
-        case "3": Libro.buscarIsbn(biblioteca.getListaLibros());
+        case "3": noEncontrar(Libro.buscarIsbn(biblioteca.getListaLibros()));
                   break;
         case "4": Libro.buscarTitulo(biblioteca.getListaLibros());
                   break;

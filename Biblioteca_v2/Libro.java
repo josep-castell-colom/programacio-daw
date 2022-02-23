@@ -183,13 +183,9 @@ public class Libro {
         System.out.println("\n[+] Libro encontrado:\n\n" + lista.get(i) + "\n");
         Tools.br();
         i = lista.size();
-      } else if (!isbn.equals(lista.get(i).getIsbn()) && i == lista.size() -1){
-        Tools.br();
-        System.out.println("\n[-] Lo sentimos, el libro no está entre nuestros títulos\n");
-        Tools.br();
+        Tools.continuar();
       }
     }
-    Tools.continuar();
     return posicion;
   }
 

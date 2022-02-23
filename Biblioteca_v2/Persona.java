@@ -1,4 +1,5 @@
 package Biblioteca_v2;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Persona {
@@ -85,56 +86,68 @@ public abstract class Persona {
     "\nCONTRASEÑA:\t" + contraseña;
   }
 
-  public static void eliminarPersona(Biblioteca biblioteca){
-    System.out.println("Introduce el N.I.F > ");
-    String nif = input.nextLine();
+  public static Pair validar(Biblioteca biblioteca){
+    ArrayList<User> listaUsuarios = biblioteca.getListaUsuarios();
+    ArrayList<Admin> listaAdmins = biblioteca.getListaAdmins();
+    Pair pair = new Pair();
     boolean found = false;
-    for(int i = 0; i < biblioteca.getListaUsuarios().size(); i ++){
-      if(nif.equals(biblioteca.getListaUsuarios().get(i).getNif())){
+    boolean valid = false;
+    Tools.br();
+    System.out.println("\t\t\tINICIE SESIÓN");
+    Tools.br();
+    System.out.println("Introduce N.I.F.: ");
+    String nif = input.nextLine();
+
+    for(int i = 0; i < listaUsuarios.size() && !found; i ++){
+      if(nif.equals(listaUsuarios.get(i).getNif())){
         found = true;
-        if(biblioteca.getListaUsuarios().get(i).getLibrosReservados().size() == 0){
-          Tools.br();
-          System.out.println("Está a punto de eliminar el siguiente usuario:");
-          System.out.println(biblioteca.getListaUsuarios().get(i));
-          Tools.br();
-          if(Tools.confirmar()){
-            biblioteca.getListaUsuarios().remove(biblioteca.getListaUsuarios().get(i));
-            System.out.println("[+] Usuario eliminado");
-            Tools.continuar();
-          } else {
-            System.out.println("[-] Operación interrumpida");
-            Tools.continuar();
+        System.out.println("Introduce contraseña:");
+        String contraseña = input.nextLine();
+        for(int j = 0; j < listaUsuarios.size() && !valid; j ++){
+          if(contraseña.equals(listaUsuarios.get(i).getContraseña()) && nif.equals(listaUsuarios.get(i).getNif())){
+            valid = true;
+            Tools.br();
+            System.out.println("Bienvenid@ " + listaUsuarios.get(i).getNombre());
+            Tools.br();
+            pair.setUser(listaUsuarios.get(i));
+            pair.setValid(true);
           }
-          i = biblioteca.getListaUsuarios().size();
-        } else {
-          System.out.println("[-] No se puede eliminar el usuario porque tiene libros reservados");
         }
-      } 
-    }
-    if (!found){
-      for(int j = 0; j < biblioteca.getListaAdmins().size(); j ++){
-        if(nif.equals(biblioteca.getListaAdmins().get(j).getNif())){
-          found = true;
+        if(!valid){
           Tools.br();
-          System.out.println("Está a punto de eliminar el siguiente administrador:");
-          System.out.println(biblioteca.getListaAdmins().get(j));
+          System.out.println("[-] Contraseña incorrecta\n");
           Tools.br();
-          if(Tools.confirmar()){
-            biblioteca.getListaAdmins().remove(biblioteca.getListaAdmins().get(j));
-            System.out.println("[+] Administrador eliminado");
-          } else {
-            System.out.println("[-] Operación interrumpida");
-            Tools.continuar();
+        }
+      } else if (i == listaUsuarios.size() -1 && !found){
+        for(int j = 0; j < listaAdmins.size() && !found; j ++){
+          if(nif.equals(listaAdmins.get(j).getNif())){
+            found = true;
+            System.out.println("Introduce contraseña:");
+            String contraseña = input.nextLine();
+            for(int k = 0; k < listaAdmins.size() && !valid; k ++){
+              if(contraseña.equals(listaAdmins.get(k).getContraseña()) && nif.equals(listaAdmins.get(k).getNif())){
+                valid = true;
+                Tools.br();
+                System.out.println("Bienvenid@ " + listaAdmins.get(k).getNombre());
+                Tools.br();
+                pair.setAdmin(listaAdmins.get(k));
+                pair.setValid(true);
+              }
+            }
           }
-          j = biblioteca.getListaAdmins().size();
-        } 
+          if(!valid){
+            Tools.br();
+            System.out.println("[-] Contraseña incorrecta\n");
+            Tools.br();
+          }
+        }
       }
     }
-    if (!found){
+    if(!found){
       Tools.br();
-      System.out.println("\n[-] No encontramos a nadie con N.I.F " + nif + "\n");
+      System.out.println("\n[-] Introduce un N.I.F. válido\n");
       Tools.br();
-      Tools.continuar();
     }
+    return pair;
   }
 }

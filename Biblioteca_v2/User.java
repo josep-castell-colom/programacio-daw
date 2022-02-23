@@ -77,20 +77,25 @@ public class User extends Persona {
         found = true;
         if(biblioteca.getListaUsuarios().get(i).getLibrosReservados().size() == 0){
           Tools.br();
-          System.out.println("[!] Está a punto de eliminar el siguiente usuario:");
+          System.out.println("\n[!] Está a punto de eliminar el siguiente usuario:\n");
           System.out.println(biblioteca.getListaUsuarios().get(i));
           Tools.br();
           if(Tools.confirmar()){
             biblioteca.getListaUsuarios().remove(biblioteca.getListaUsuarios().get(i));
-            System.out.println("[+] Usuario eliminado");
+            Tools.br();
+            System.out.println("\n[+] Usuario eliminado\n");
             Tools.continuar();
           } else {
-            System.out.println("[-] Operación interrumpida");
+            Tools.br();
+            System.out.println("\n[-] Operación interrumpida\n");
             Tools.continuar();
           }
           i = biblioteca.getListaUsuarios().size();
         } else {
-          System.out.println("[-] No se puede eliminar el usuario porque tiene libros reservados");
+          Tools.br();
+          System.out.println("\n[-] No se puede eliminar el usuario porque tiene libros reservados\n");
+          Tools.br();
+          Tools.continuar();
         }
       } 
     }
@@ -136,7 +141,7 @@ public class User extends Persona {
     }
   }
 
-  public void devolverLibro(Biblioteca biblioteca){
+  public void devolverLibro(ArrayList<Libro> lista){
     Tools.br();
     System.out.println("\t\tDEVOLVER LIBRO");
     Tools.br();
@@ -145,23 +150,28 @@ public class User extends Persona {
       Tools.br();
       System.out.println("Está a punto de devolver el libro " + this.getLibrosReservados().get(posicion).getTitulo());
       if(Tools.confirmar()){
-        this.getLibrosReservados().remove(this.getLibrosReservados().get(posicion));
-        for(int i = 0; i < biblioteca.getListaLibros().size(); i ++){
-          if(this.getLibrosReservados().get(posicion).getIsbn().equals(biblioteca.getListaLibros().get(i).getIsbn())){
-            biblioteca.getListaLibros().get(i).setIsbn(biblioteca.getListaLibros().get(i).getIsbn() + 1);
-            i = biblioteca.getListaLibros().size();
+        for(int i = 0; i < lista.size(); i ++){
+          if(this.getLibrosReservados().get(posicion).getIsbn().equals(lista.get(i).getIsbn())){
+            lista.get(i).setNumCopiasDisponibles(lista.get(i).getNumCopiasDisponibles() + 1);
+            i = lista.size();
           }
         }
+        this.getLibrosReservados().remove(this.getLibrosReservados().get(posicion));
         Tools.br();
         System.out.println("[+] Libro devuelto");
         Tools.br();
       }
+    } else {
+      Tools.br();
+      System.out.println("\n[-] El libro no está entre sus reservas\n");
+      Tools.br();
     }
+    Tools.continuar();
   }
 
   public void mostrarLibrosReservados(){
     Tools.br();
-    System.out.println("\t\tMOSTRANDO LIBROS RESERVADOS POR '" + this.getNombre() + "'");
+    System.out.println("\tMOSTRANDO LIBROS RESERVADOS POR '" + this.getNombre() + "'");
     Tools.br();
     if(this.getLibrosReservados().size() > 0){
       for(int i = 0; i < this.getLibrosReservados().size(); i ++){
