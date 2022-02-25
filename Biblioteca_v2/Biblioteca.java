@@ -32,7 +32,7 @@ public class Biblioteca {
   public String getNombre(){
     return nombre;
   }
-
+  >
   public void setNombre(String nombre){
     this.nombre = nombre;
   }
@@ -125,17 +125,28 @@ public class Biblioteca {
     Tools.br();
     System.out.println("\t\tTODOS LOS LIBROS RESERVADOS");
     Tools.br();
+    boolean hayLibros = false;
     if(this.getListaUsuarios().size() > 0){
       for(int i = 0; i < this.getListaUsuarios().size(); i ++){
-        System.out.println("[+] Mostrando libros reservados por " + this.getListaUsuarios().get(i).getNombre());
-        for(int j = 0; j < this.getListaUsuarios().get(i).getLibrosReservados().size(); j ++){
-          Tools.br();
-          System.out.println(this.getListaUsuarios().get(i).getLibrosReservados().get(j));
-          Tools.br();
+        if(this.getListaUsuarios().get(i).getLibrosReservados().size() > 0){
+          hayLibros = true;
+          System.out.println("[+] Mostrando libros reservados por " + this.getListaUsuarios().get(i).getNombre());
+          for(int j = 0; j < this.getListaUsuarios().get(i).getLibrosReservados().size(); j ++){
+            Tools.br();
+            System.out.println(this.getListaUsuarios().get(i).getLibrosReservados().get(j));
+            Tools.br();
+          }
         }
+      }
+      if(!hayLibros){
+        Tools.br();
+        System.out.println("[-] Ningún usuario ha reservado ningún libro");
+      }
+    } else {
+      Tools.br();
+      System.out.println("[-] No hay usuarios registrados");
     }
-    }
-    Tools.br();
+    Tools.continuar();
   }
 
   public void mostrarUsuarios(){
