@@ -47,7 +47,7 @@ public abstract class Tools {
       }
     }
     br();
-    System.out.println("\n" + firstUpperCase + ".\n");
+    System.out.println("\n" + firstUpperCase + "\n");
   }
 
   public static void mensaje(String mensaje, String continuar){
@@ -163,7 +163,7 @@ public abstract class Tools {
       System.out.println("0 - Salir");
       String opt = prompt();
       switch(opt){
-        case "1": pair = Persona.validar(biblioteca, "user");                   // ARREGLAR VALIDAR USER/ADMIN !!!
+        case "1": pair = Persona.validar(biblioteca, "user");
                   if(pair.getValid()){
                     Main.setCurrentUser(pair.getUser());
                     userMenu(biblioteca);
@@ -262,7 +262,7 @@ public abstract class Tools {
                   break;
         case "6": biblioteca.mostrarDisponibles();
                   break;
-        case "7": mensaje("neg", "lo sentimos, esta sección está en construcción", "continuar");
+        case "7": biblioteca.mostrarSinReservas();
                   break;
         case "8": biblioteca.mostrarLibrosReservados();
                   break;

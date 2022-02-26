@@ -135,6 +135,20 @@ public class Biblioteca {
     Tools.continuar();
   }
 
+  public void mostrarSinReservas(){
+    Tools.mensaje("titulo", "mostrando libros sin ninguna reserva", "");
+    if(this.getListaLibros().size() > 0){
+      for(int i = 0; i < this.getListaLibros().size(); i ++){
+        if(this.getListaLibros().get(i).getNumCopias() == this.getListaLibros().get(i).getNumCopiasDisponibles()){
+          Tools.mensaje(this.getListaLibros().get(i).toString());
+        }
+      }
+      Tools.continuar();
+    } else {
+      Tools.mensaje("neg", "ningún título tiene 0 reservas", "continuar");
+    }
+  }
+
   public void mostrarUsuarios(){
     if(this.getListaUsuarios().size() > 0){
       Tools.mensaje("titulo", "mostrando todos los usuarios", "");

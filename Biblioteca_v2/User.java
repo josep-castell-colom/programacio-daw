@@ -87,32 +87,49 @@ public class User extends Persona {
   }
 
   public void reservarLibro(Biblioteca biblioteca){
-    Tools.mensaje("titulo", "reservar libro", "");
-    int posicion = Libro.buscarIsbn(biblioteca.getListaLibros());
-    if(posicion > -1){
-      boolean repetido = false;
-      for(int i = 0; i < this.getLibrosReservados().size(); i ++){
-        if(this.getLibrosReservados().get(i).getIsbn() == biblioteca.getListaLibros().get(posicion).getIsbn()){
-          repetido = true;
+    if(this.getLibrosReservados().size() < 5){
+      Tools.mensaje("titulo", "reservar libro", "");
+      int posicion = Libro.buscarIsbn(biblioteca.getListaLibros());
+      if(posicion > -1){
+        boolean repetido = false;
+        for(int i = 0; i < this.getLibrosReservados().size(); i ++){
+          if(this.getLibrosReservados().get(i).getIsbn() == biblioteca.getListaLibros().get(posicion).getIsbn()){
+            repetido = true;
+          }
         }
-      }
-      if(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() > 0 && !repetido){
-        Tools.br();
-        System.out.println("Está a punto de reservar el libro " + biblioteca.getListaLibros().get(posicion).getTitulo());
-        if(Tools.confirmar()){
-          this.getLibrosReservados().add(biblioteca.getListaLibros().get(posicion));
-          biblioteca.getListaLibros().get(posicion).setNumCopiasDisponibles(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() - 1);
-          Tools.mensaje("pos", "libro reservado", "");
-        }else {
-          Tools.mensaje("neg", "operación cancelada por el usuario", "");
+        if(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() > 0 && !repetido){
+          Tools.br();
+          System.out.println("Está a punto de reservar el libro " + biblioteca.getListaLibros().get(posicion).getTitulo());
+          if(Tools.confirmar()){
+            this.getLibrosReservados().add(biblioteca.getListaLibros().get(posicion));
+            biblioteca.getListaLibros().get(posicion).setNumCopiasDisponibles(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() - 1);
+            Tools.mensaje("pos", "libro reservado", "");
+          }else {
+            Tools.mensaje("neg", "operación cancelada por el usuario", "");
+          }
+        } else if(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() == 0 && !repetido){
+
+          Tools.mensaje("neg", "lo sentimos, no disponemos de copias disponibles para el libro " + biblioteca.getListaLibros().get(posicion).getTitulo(), "");
+        } else if(repetido){
+          Tools.mensaje("neg", "usted ya dispone de una copia de este libro", "");
         }
-      } else if(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() == 0 && !repetido){
-        
-        Tools.mensaje("neg", "lo sentimos, no disponemos de copias disponibles para el libro " + biblioteca.getListaLibros().get(posicion).getTitulo(), "");
-      } else if(repetido){
-        Tools.mensaje("neg", "usted ya dispone de una copia de este libro", "");
+        Tools.continuar();
       }
-      Tools.continuar();
+    } else {
+      Tools.mensaje("neg", "usted ya tiene 5 libros reservados", "");
+      boolean continua = false;
+      do {
+        System.out.println("1 - Devolver libro\n2 - Volver al menú");
+        String opt = Tools.prompt();
+        switch(opt){
+          case "1": devolverLibro(Main.getCurrentBiblioteca().getListaLibros());
+                    continua = true;
+                    break;
+          case "2": continua = true;
+          break;
+          case default: Tools.mensaje("alert", "introduce una de las opciones disponibles", "continuar");
+        }
+      }while(!continua);
     }
   }
 
@@ -126,11 +143,11 @@ public class User extends Persona {
         for(int i = 0; i < lista.size(); i ++){
           if(this.getLibrosReservados().get(posicion).getIsbn().equals(lista.get(i).getIsbn())){
             lista.get(i).setNumCopiasDisponibles(lista.get(i).getNumCopiasDisponibles() + 1);
+            this.getLibrosReservados().remove(this.getLibrosReservados().get(posicion));
             i = lista.size();
+            Tools.mensaje("pos", "libro devuelto", "");
           }
         }
-        this.getLibrosReservados().remove(this.getLibrosReservados().get(posicion));
-        Tools.mensaje("pos", "libro devuelto", "");
       } else {
         Tools.mensaje("neg", "operación cancelada por el usuario", "");
       }
