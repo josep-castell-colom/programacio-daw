@@ -163,7 +163,7 @@ public abstract class Tools {
       System.out.println("0 - Salir");
       String opt = prompt();
       switch(opt){
-        case "1": pair = Persona.validar(biblioteca);                   // ARREGLAR VALIDAR USER/ADMIN !!!
+        case "1": pair = Persona.validar(biblioteca, "user");                   // ARREGLAR VALIDAR USER/ADMIN !!!
                   if(pair.getValid()){
                     Main.setCurrentUser(pair.getUser());
                     userMenu(biblioteca);
@@ -171,7 +171,7 @@ public abstract class Tools {
                   break;
         case "2": User.añadirUsuario(biblioteca);
                   break;
-        case "3": pair = Persona.validar(biblioteca);
+        case "3": pair = Persona.validar(biblioteca, "admin");
                   if(pair.getValid()){
                     Main.setCurrentAdmin(pair.getAdmin());
                     adminMenu(biblioteca);
