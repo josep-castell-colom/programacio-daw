@@ -11,30 +11,27 @@ public class Admin extends Persona {
   }
 
   public static void añadirAdmin(Biblioteca biblioteca){
-    Tools.br();
-    System.out.println("\t\tAÑADIR ADMINISTRADOR");
-    Tools.br();
-    System.out.println("Nombre > ");
-    String nombre = input.nextLine();
-    System.out.println("Apellido1 > ");
-    String apellido1 = input.nextLine();
-    System.out.println("Apellido2 > ");
-    String apellido2 = input.nextLine();
-    System.out.println("N.I.F. > ");
-    String nif = input.nextLine();
+    Tools.mensaje("titulo", "añadir administrador", "");
+    System.out.println("Nombre");
+    String nombre = Tools.prompt();
+    System.out.println("Apellido1");
+    String apellido1 = Tools.prompt();
+    System.out.println("Apellido2");
+    String apellido2 = Tools.prompt();
+    System.out.println("N.I.F.");
+    String nif = Tools.prompt();
     String contraseña;
     boolean ok = false;
     do{
-      System.out.println("Contraseña > ");
-      contraseña = input.nextLine();
+      System.out.println("Contraseña");
+      contraseña = Tools.prompt();
       if(contraseña.length() >= 8){
         Admin admin = new Admin(nombre, apellido1, apellido2, nif, contraseña);
         biblioteca.getListaAdmins().add(admin);
-        System.out.println("[+] Administrador añadido");
+        Tools.mensaje("pos", "administrador añadido", "continuar");
         ok = true;
-        Tools.continuar();
       } else {
-        System.out.println("[-] La contraseña debe tener 8 caracteres como mínimo");
+        Tools.mensaje("alert", "la contraseña debe tener 8 caracteres como mínimo");
         boolean ok2 = false;
         do{
           System.out.println("1. Reintroducir contraseña\t2. Salir");
@@ -45,7 +42,7 @@ public class Admin extends Persona {
             ok2 = true;
             ok = true;
           } else {
-            System.out.println("[!] Introduce 1 o 2");
+            Tools.mensaje("alert", "introduce 1 o 2", "continuar");
           }
         }while(!ok2);
       }
@@ -53,36 +50,26 @@ public class Admin extends Persona {
   }
 
   public static void eliminarAdmin(Biblioteca biblioteca){
-    Tools.br();
-    System.out.println("\t\tELIMINAR ADMINISTRADOR");
-    Tools.br();
-    System.out.println("Introduce el N.I.F > ");
-    String nif = input.nextLine();
+    Tools.mensaje("titulo", "eliminar administrador", "");
+    System.out.println("Introduce el N.I.F");
+    String nif = Tools.prompt();
     boolean found = false;
     for(int j = 0; j < biblioteca.getListaAdmins().size(); j ++){
       if(nif.equals(biblioteca.getListaAdmins().get(j).getNif())){
         found = true;
-        Tools.br();
-        System.out.println("\n[!] Está a punto de eliminar el siguiente administrador:\n");
-        System.out.println(biblioteca.getListaAdmins().get(j));
-        Tools.br();
+        Tools.mensaje("alert", "está a punto de eliminar el siguiente administrador\n" + biblioteca.getListaAdmins().get(j), "");
         if(Tools.confirmar()){
           biblioteca.getListaAdmins().remove(biblioteca.getListaAdmins().get(j));
-          Tools.br();
-          System.out.println("\n[+] Administrador eliminado\n");
+          Tools.mensaje("pos", "administrador eliminado", "");
         } else {
-          Tools.br();
-          System.out.println("\n[-] Operación interrumpida\n");
+          Tools.mensaje("neg", "operación interrumpida", "");
         }
         Tools.continuar();
         j = biblioteca.getListaAdmins().size();
       } 
     }
     if (!found){
-      Tools.br();
-      System.out.println("\n[-] No encontramos a ningún administrador con N.I.F " + nif + "\n");
-      Tools.br();
-      Tools.continuar();
+      Tools.mensaje("neg", "no encontramos a ningún administrador con NIF " + nif, "continuar");
     }
   }
 

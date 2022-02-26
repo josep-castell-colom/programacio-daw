@@ -92,61 +92,48 @@ public abstract class Persona {
     Pair pair = new Pair();
     boolean found = false;
     boolean valid = false;
-    Tools.br();
-    System.out.println("\t\t\tINICIE SESIÓN");
-    Tools.br();
+    Tools.mensaje("titulo", "inicie sesión", "");
     System.out.println("Introduce N.I.F.: ");
-    String nif = input.nextLine();
-
+    String nif = Tools.prompt();
+    
     for(int i = 0; i < listaUsuarios.size() && !found; i ++){
       if(nif.equals(listaUsuarios.get(i).getNif())){
         found = true;
+        System.out.println();
         System.out.println("Introduce contraseña:");
-        String contraseña = input.nextLine();
+        String contraseña = Tools.prompt();
         for(int j = 0; j < listaUsuarios.size() && !valid; j ++){
           if(contraseña.equals(listaUsuarios.get(i).getContraseña()) && nif.equals(listaUsuarios.get(i).getNif())){
             valid = true;
-            Tools.br();
-            System.out.println("Bienvenid@ " + listaUsuarios.get(i).getNombre());
-            Tools.br();
+            Tools.mensaje("Bienvenid@ usuario " + listaUsuarios.get(i).getNombre());
             pair.setUser(listaUsuarios.get(i));
             pair.setValid(true);
           }
-        }
-        if(!valid){
-          Tools.br();
-          System.out.println("[-] Contraseña incorrecta\n");
-          Tools.br();
         }
       } else if (i == listaUsuarios.size() -1 && !found){
         for(int j = 0; j < listaAdmins.size() && !found; j ++){
           if(nif.equals(listaAdmins.get(j).getNif())){
             found = true;
+            System.out.println();
             System.out.println("Introduce contraseña:");
             String contraseña = input.nextLine();
             for(int k = 0; k < listaAdmins.size() && !valid; k ++){
               if(contraseña.equals(listaAdmins.get(k).getContraseña()) && nif.equals(listaAdmins.get(k).getNif())){
                 valid = true;
-                Tools.br();
-                System.out.println("Bienvenid@ " + listaAdmins.get(k).getNombre());
-                Tools.br();
+                Tools.mensaje("Bienvenid@ admin " + listaAdmins.get(k).getNombre());
                 pair.setAdmin(listaAdmins.get(k));
                 pair.setValid(true);
               }
             }
           }
-          if(!valid){
-            Tools.br();
-            System.out.println("[-] Contraseña incorrecta\n");
-            Tools.br();
-          }
         }
       }
     }
-    if(!found){
-      Tools.br();
-      System.out.println("\n[-] Introduce un N.I.F. válido\n");
-      Tools.br();
+    if(!found && !valid){
+      Tools.mensaje("neg", "introduce un NIF válido", "continuar");
+    }
+    if(found && !valid){
+      Tools.mensaje("neg", "contraseña incorrecta", "continuar");
     }
     return pair;
   }

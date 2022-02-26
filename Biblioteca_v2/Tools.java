@@ -31,13 +31,81 @@ public abstract class Tools {
     input.nextLine();
   }
 
+  public static String prompt(){
+    System.out.print("> ");
+    String out = input.nextLine();
+    return out;
+  }
+
+  public static void mensaje(String mensaje){
+    String firstUpperCase = "";
+    for(int i = 0; i < mensaje.length(); i ++){
+      if(i == 0 || (i > 1 && mensaje.charAt(i - 2) == '.')){
+        firstUpperCase += Character.toUpperCase(mensaje.charAt(i));
+      } else {
+        firstUpperCase += mensaje.charAt(i);
+      }
+    }
+    br();
+    System.out.println("\n" + firstUpperCase + ".\n");
+  }
+
+  public static void mensaje(String mensaje, String continuar){
+    String firstUpperCase = "";
+    for(int i = 0; i < mensaje.length(); i ++){
+      if(i == 0 || (i > 1 && mensaje.charAt(i - 2) == '.')){
+        firstUpperCase += Character.toUpperCase(mensaje.charAt(i));
+      } else {
+        firstUpperCase += mensaje.charAt(i);
+      }
+    }
+    br();
+    System.out.println("\n" + firstUpperCase + ".\n");
+    if(continuar.equals("continuar")){
+      continuar();
+    }
+  }
+
+  public static void mensaje(String valor, String mensaje, String continuar){
+    String firstUpperCase = "";
+    for(int i = 0; i < mensaje.length(); i ++){
+      if(i == 0 || (i > 1 && mensaje.charAt(i - 2) == '.')){
+        firstUpperCase += Character.toUpperCase(mensaje.charAt(i));
+      } else {
+        firstUpperCase += mensaje.charAt(i);
+      }
+    }
+    br();
+    switch(valor){
+      case "pos": System.out.println("\n[+] " + firstUpperCase + "\n");
+      break;
+      case "neg": System.out.println("\n[-] " + firstUpperCase + "\n");
+      break;
+      case "alert": System.out.println("\n[!] " + firstUpperCase + "\n");
+      break;
+      case "titulo":  if(mensaje.length() < 20){
+                        System.out.println("\t\t\t" + mensaje.toUpperCase());
+                      } else if(mensaje.length() < 40) {
+                        System.out.println("\t\t" + mensaje.toUpperCase());
+                      } else {
+                        System.out.println("\t" + mensaje.toUpperCase());
+                      }
+      break;
+      case default: System.out.println("\n" + firstUpperCase + "\n");
+    }
+    br();
+    if(continuar.equals("continuar")){
+      continuar();
+    }
+  }
+
   public static boolean confirmar(){
     boolean ok = false;
     boolean out = false;
     String opt;
     do{
       System.out.println("¿Desea continuar? (si/no)");
-      opt = (input.nextLine());
+      opt = prompt();
       if(opt.equalsIgnoreCase("si")){
         ok = true;
         out = true;
@@ -47,12 +115,6 @@ public abstract class Tools {
       }
     } while(!ok);
     return out;
-  }
-
-  public static void enConstruccion(){
-    br();
-    System.out.println("[-] Lo sentimos, esta sección esta en construcción.");
-    continuar();
   }
 
   public static boolean comprobarNum(String string){
@@ -83,10 +145,7 @@ public abstract class Tools {
 
   public static void noEncontrar(int posicion){
     if(posicion == -1){
-      br();
-      System.out.println("\n[-] Lo sentimos, el libro no está entre nuestros títulos\n");
-      br();
-      continuar();
+      mensaje("neg", "lo sentimos, el libro no esta entre nuestros títulos", "continuar");
     }
   }
 
@@ -95,18 +154,16 @@ public abstract class Tools {
     System.out.println();
     portada();
     System.out.println();
-    br();
-    System.out.println("BIENVENID@ A LA BIBLIOTECA '" + biblioteca.getNombre() + "'");
-    br();
+    mensaje("titulo", biblioteca.getNombre(), "");
     do {
+      mensaje("titulo", "bienvenido", "");
       System.out.println("1 - Menú de usuario");
       System.out.println("2 - Añadir usuario");
       System.out.println("3 - Manú de administrador");
       System.out.println("0 - Salir");
-      System.out.print("> ");
-      String opt = input.nextLine();
+      String opt = prompt();
       switch(opt){
-        case "1": pair = Persona.validar(biblioteca);
+        case "1": pair = Persona.validar(biblioteca);                   // ARREGLAR VALIDAR USER/ADMIN !!!
                   if(pair.getValid()){
                     Main.setCurrentUser(pair.getUser());
                     userMenu(biblioteca);
@@ -124,18 +181,14 @@ public abstract class Tools {
                   br();
                   System.out.println("Hasta pronto! ;)");
                   break;
-        default:  Tools.br();
-                  System.out.println("[!] Por favor, introduce una de las opciones disponibles");
-                  Tools.continuar();
+        default:  mensaje("alert", "por favor, introduce una de las opciones disponibles", "");
       }
     } while (Main.getOn());
   }
 
   public static void userMenu(Biblioteca biblioteca){
     do {
-    br();
-    System.out.println("\t\tMENÚ DE USUARIO");
-    br();
+    mensaje("titulo", "menú de usuario", "");
       System.out.println("1 - Reservar libro");
       System.out.println("2 - Devolver libro");
       System.out.println("3 - Buscar libro por ISBN");
@@ -145,8 +198,7 @@ public abstract class Tools {
       System.out.println("7 - Ver sus libros reservados");
       System.out.println("9 - Volver al menú principal");
       System.out.println("0 - Salir");
-      System.out.print("> ");
-      String opt = input.nextLine();
+      String opt = prompt();
       switch (opt){
         case "1": Main.getCurrentUser().reservarLibro(biblioteca);
                   break;
@@ -168,19 +220,15 @@ public abstract class Tools {
                   br();
                   System.out.println("Hasta pronto! ;)");
                   break;
-        default:  Tools.br();
-                  System.out.println("\n[!] Por favor, introduce una de las opciones disponibles");
-                  Tools.continuar();
+        default:  mensaje("alert", "por favor, introduce una de las opciones disponibles", "continuar");
       }
     } while (Main.getOn());
   }
 
   public static void adminMenu(Biblioteca biblioteca){
     do {
-    br();
-    System.out.println("\t\tMENU DE ADMINISTRADOR");
-    br();
-      System.out.println("\t\tGESTIONAR LIBROS:");
+      mensaje("titulo", "menú de administrador", "");
+      System.out.println("\n\t\tGESTIONAR LIBROS\n");
       System.out.println("1 - Añadir libro");
       System.out.println("2 - Eliminar libro");
       System.out.println("3 - Buscar libro por ISBN");
@@ -190,7 +238,7 @@ public abstract class Tools {
       System.out.println("7 - Ver sólo los libros sin reservas\t[UNDER CONSTRUCTION]");
       System.out.println("8 - Ver todos los libros reservados");
       System.out.println();
-      System.out.println("\tGESTIONAR USUARIOS Y ADMINISTRADORES");
+      System.out.println("\n\tGESTIONAR USUARIOS Y ADMINISTRADORES\n");
       System.out.println("11 - Añadir usuario");
       System.out.println("12 - Eliminar usuario");
       System.out.println("13 - Añadir administrador");
@@ -200,8 +248,7 @@ public abstract class Tools {
       System.out.println();
       System.out.println("9 - Volver al menú principal");
       System.out.println("0 - Salir");
-      System.out.print("> ");
-      String opt = input.nextLine();
+      String opt = prompt();
       switch (opt){
         case "1": Libro.añadirLibro(biblioteca.getListaLibros());
                   break;
@@ -215,7 +262,7 @@ public abstract class Tools {
                   break;
         case "6": biblioteca.mostrarDisponibles();
                   break;
-        case "7": enConstruccion();
+        case "7": mensaje("neg", "lo sentimos, esta sección está en construcción", "continuar");
                   break;
         case "8": biblioteca.mostrarLibrosReservados();
                   break;
@@ -237,9 +284,7 @@ public abstract class Tools {
                   br();
                   System.out.println("Hasta pronto! ;)");
                   break;
-        default:  Tools.br();
-                  System.out.println("[!] Por favor, introduce una de las opciones disponibles");
-                  Tools.continuar();
+        default:  mensaje("alert", "por favor, introduce una de las opciones disponibles", "continuar");
       }
     } while (Main.getOn());
   }

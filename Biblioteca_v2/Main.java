@@ -43,16 +43,16 @@ public class Main {
 
   public static void main(String[] args) {
     currentBiblioteca = new Biblioteca("Biblioteca Virtual del CIFP FBMoll");
-    ArrayList<Libro> libreria = new ArrayList<Libro>();
+    ArrayList<Libro> listaPrueba = new ArrayList<Libro>();
     Libro libro = new Libro("libro", "titulo", "autor", "editorial", 5);
-    libreria.add(libro);
+    listaPrueba.add(libro);
     Libro libro2 = new Libro("libro2", "titulo2", "autor2", "editorial2", 5);
-    libreria.add(libro2);
+    listaPrueba.add(libro2);
     Libro libro3 = new Libro("libro3", "titulo3", "autor3", "editorial3", 5);
-    libreria.add(libro3);
+    listaPrueba.add(libro3);
     Libro libro4 = new Libro("libro4", "titulo4", "autor4", "editorial4", 5, 0);
-    libreria.add(libro4);
-    currentBiblioteca.setListaLibros(libreria);
+    listaPrueba.add(libro4);
+    currentBiblioteca.setListaLibros(listaPrueba);
     User usuario1 = new User("Toni", "Mateu", "Martorell", "toni", "hola");
     currentBiblioteca.getListaUsuarios().add(usuario1);
     User usuario2 = new User("Maria", "Amengual", "Bestard", "maria", "hola");
