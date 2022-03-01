@@ -169,6 +169,24 @@ public abstract class Tools {
     } while(!continua);
   }
 
+  public static boolean repetirContraseña(){
+    boolean out = false;
+    boolean ok = false;
+    do{
+      System.out.println("1. Reintroducir contraseña\t2. Salir");
+      String opt = Tools.prompt();
+      if(opt.equals("1")){
+        ok = true;
+        out = true;
+      } else if (opt.equals("2")){
+        ok = true;
+      } else {
+        Tools.mensaje("alert", "introduce 1 o 2", "");
+      }
+    }while(!ok);
+    return out;
+  }
+
   public static void mainMenu(Biblioteca biblioteca){
     br();
     System.out.println();
@@ -189,7 +207,7 @@ public abstract class Tools {
                     userMenu(biblioteca);
                   }
                   break;
-        case "2": User.añadirUsuario(biblioteca);
+        case "2": Persona.añadirPersona("user", biblioteca);
                   break;
         case "3": pair = Persona.validar(biblioteca, "admin");
                   if(pair.getValid()){
@@ -286,11 +304,11 @@ public abstract class Tools {
                   break;
         case "8": biblioteca.mostrarLibrosReservados();
                   break;
-        case "11":User.añadirUsuario(biblioteca);
+        case "11":Persona.añadirPersona("user", biblioteca);
                   break;
         case "12":User.eliminarUser(biblioteca);
                   break;
-        case "13":Admin.añadirAdmin(biblioteca);
+        case "13":Persona.añadirPersona("admin", biblioteca);
                   break;
         case "14":Admin.eliminarAdmin(biblioteca);
                   break;

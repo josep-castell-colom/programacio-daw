@@ -80,6 +80,7 @@ public abstract class Persona {
       valid = true;
     } else {
       Tools.mensaje("neg", "la contraseña debe contener al menos 8 caracteres", "continuar");
+      
     }
     return valid;
   }
@@ -145,5 +146,65 @@ public abstract class Persona {
       Tools.mensaje("neg", "contraseña incorrecta", "continuar");
     }
     return pair;
+  }
+
+  public static void añadirPersona(String modo, Biblioteca biblioteca){
+    switch(modo){
+      case "user":  Tools.mensaje("titulo", "añadir usuario", "");
+                    break;
+      case "admin": Tools.mensaje("titulo", "añadir administrador", "");
+    }
+    System.out.println("Nombre");
+    String nombre = Tools.nameFirstUpperCase(Tools.prompt());
+    System.out.println("Apellido1");
+    String apellido1 = Tools.nameFirstUpperCase(Tools.prompt());
+    System.out.println("Apellido2");
+    String apellido2 = Tools.nameFirstUpperCase(Tools.prompt());
+    System.out.println("N.I.F.");
+    String nif = Tools.prompt();
+    String contraseña;
+    switch(modo){
+      case "user":
+        User user = new User();
+        user.setNombre(nombre);
+        user.setApellidos(apellido1, apellido2);
+        user.setNif(nif);
+        System.out.println("Contraseña");
+        contraseña = Tools.prompt();
+        boolean userPassOk = user.setContraseña(contraseña);
+        if(!userPassOk){
+          while(!userPassOk && Tools.repetirContraseña()){
+            System.out.println("Contraseña");
+            contraseña = Tools.prompt();
+            userPassOk = user.setContraseña(contraseña);
+          }
+        } 
+        if (userPassOk) {
+          biblioteca.getListaUsuarios().add(user);
+          Tools.mensaje("pos", "usuario añadido: \n\n" + user, "continuar");
+        }
+          break;
+      case "admin":
+        Admin admin = new Admin();
+        admin.setNombre(nombre);
+        admin.setApellidos(apellido1, apellido2);
+        admin.setNif(nif);
+        System.out.println("Contraseña");
+        contraseña = Tools.prompt();
+        boolean adminPassOk = admin.setContraseña(contraseña);
+        if(!adminPassOk){
+          while(!adminPassOk && Tools.repetirContraseña()){
+            System.out.println("Contraseña");
+            contraseña = Tools.prompt();
+            adminPassOk = admin.setContraseña(contraseña);
+          }
+        } 
+        if (adminPassOk) {
+          biblioteca.getListaAdmins().add(admin);
+          Tools.mensaje("pos", "administrador añadido: \n\n" + admin, "continuar");
+        }
+    }
+
+    
   }
 }

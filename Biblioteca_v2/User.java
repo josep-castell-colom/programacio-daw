@@ -20,45 +20,6 @@ public class User extends Persona {
     librosReservados = lista;
   }
 
-  public static void añadirUsuario(Biblioteca biblioteca){
-    Tools.mensaje("titulo", "añadir usuario", "");
-    System.out.println("Nombre");
-    String nombre = Tools.nameFirstUpperCase(Tools.prompt());
-    System.out.println("Apellido1");
-    String apellido1 = Tools.nameFirstUpperCase(Tools.prompt());
-    System.out.println("Apellido2");
-    String apellido2 = Tools.nameFirstUpperCase(Tools.prompt());
-    System.out.println("N.I.F.");
-    String nif = Tools.prompt();
-    String contraseña;
-    boolean ok = false;
-    do{
-      System.out.println("Contraseña");
-      contraseña = Tools.prompt();
-      if(contraseña.length() >= 8){
-        User user = new User(nombre, apellido1, apellido2, nif, contraseña);
-        biblioteca.getListaUsuarios().add(user);
-        Tools.mensaje("pos", "usuario añadido:\n\n" + user + "\n", "continuar");
-        ok = true;
-      } else {
-        Tools.mensaje("alert", "la contraseña debe tener 8 caracteres como mínimo", "continuar");
-        boolean ok2 = false;
-        do{
-          System.out.println("1. Reintroducir contraseña\t2. Salir");
-          String opt = Tools.prompt();
-          if(opt.equals("1")){
-            ok2 = true;
-          } else if (opt.equals("2")){
-            ok2 = true;
-            ok = true;
-          } else {
-            Tools.mensaje("alert", "introduce 1 o 2", "");
-          }
-        }while(!ok2);
-      }
-    }while(!ok);
-  }
-
   public static void eliminarUser(Biblioteca biblioteca){
     Tools.mensaje("titulo", "eliminar usuario", "");
     System.out.println("Introduce el N.I.F > ");
