@@ -36,8 +36,8 @@ public abstract class Tools {
     String out = input.nextLine();
     return out;
   }
-
-  public static void mensaje(String mensaje){
+  
+  public static String firstUpperCase(String mensaje){
     String firstUpperCase = "";
     for(int i = 0; i < mensaje.length(); i ++){
       if(i == 0 || (i > 1 && mensaje.charAt(i - 2) == '.')){
@@ -46,42 +46,42 @@ public abstract class Tools {
         firstUpperCase += mensaje.charAt(i);
       }
     }
+    return firstUpperCase;
+  }
+
+  public static String nameFirstUpperCase(String name){
+    String firstUpperCase = "";
+    for(int i = 0; i < name.length(); i ++){
+      if(i == 0 || (i > 1 && name.charAt(i - 1) == ' ')){
+        firstUpperCase += Character.toUpperCase(name.charAt(i));
+      } else {
+        firstUpperCase += name.charAt(i);
+      }
+    }
+    return firstUpperCase;
+  }
+
+  public static void mensaje(String mensaje){
     br();
-    System.out.println("\n" + firstUpperCase + "\n");
+    System.out.println("\n" + firstUpperCase(mensaje) + "\n");
   }
 
   public static void mensaje(String mensaje, String continuar){
-    String firstUpperCase = "";
-    for(int i = 0; i < mensaje.length(); i ++){
-      if(i == 0 || (i > 1 && mensaje.charAt(i - 2) == '.')){
-        firstUpperCase += Character.toUpperCase(mensaje.charAt(i));
-      } else {
-        firstUpperCase += mensaje.charAt(i);
-      }
-    }
     br();
-    System.out.println("\n" + firstUpperCase + ".\n");
+    System.out.println("\n" + firstUpperCase(mensaje) + ".\n");
     if(continuar.equals("continuar")){
       continuar();
     }
   }
 
   public static void mensaje(String valor, String mensaje, String continuar){
-    String firstUpperCase = "";
-    for(int i = 0; i < mensaje.length(); i ++){
-      if(i == 0 || (i > 1 && mensaje.charAt(i - 2) == '.')){
-        firstUpperCase += Character.toUpperCase(mensaje.charAt(i));
-      } else {
-        firstUpperCase += mensaje.charAt(i);
-      }
-    }
     br();
     switch(valor){
-      case "pos": System.out.println("\n[+] " + firstUpperCase + "\n");
+      case "pos": System.out.println("\n[+] " + firstUpperCase(mensaje) + "\n");
       break;
-      case "neg": System.out.println("\n[-] " + firstUpperCase + "\n");
+      case "neg": System.out.println("\n[-] " + firstUpperCase(mensaje) + "\n");
       break;
-      case "alert": System.out.println("\n[!] " + firstUpperCase + "\n");
+      case "alert": System.out.println("\n[!] " + firstUpperCase(mensaje) + "\n");
       break;
       case "titulo":  if(mensaje.length() < 20){
                         System.out.println("\t\t\t" + mensaje.toUpperCase());
@@ -91,7 +91,7 @@ public abstract class Tools {
                         System.out.println("\t" + mensaje.toUpperCase());
                       }
       break;
-      case default: System.out.println("\n" + firstUpperCase + "\n");
+      case default: System.out.println("\n" + firstUpperCase(mensaje) + "\n");
     }
     br();
     if(continuar.equals("continuar")){
@@ -110,6 +110,7 @@ public abstract class Tools {
         ok = true;
         out = true;
       } else if (opt.equalsIgnoreCase("no")){
+        mensaje("neg", "operación cancelada por el usuario", "");
         ok = true;
         out = false;
       }

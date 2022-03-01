@@ -23,11 +23,11 @@ public class User extends Persona {
   public static void añadirUsuario(Biblioteca biblioteca){
     Tools.mensaje("titulo", "añadir usuario", "");
     System.out.println("Nombre");
-    String nombre = Tools.prompt();
+    String nombre = Tools.nameFirstUpperCase(Tools.prompt());
     System.out.println("Apellido1");
-    String apellido1 = Tools.prompt();
+    String apellido1 = Tools.nameFirstUpperCase(Tools.prompt());
     System.out.println("Apellido2");
-    String apellido2 = Tools.prompt();
+    String apellido2 = Tools.nameFirstUpperCase(Tools.prompt());
     System.out.println("N.I.F.");
     String nif = Tools.prompt();
     String contraseña;
@@ -103,17 +103,13 @@ public class User extends Persona {
           if(Tools.confirmar()){
             this.getLibrosReservados().add(biblioteca.getListaLibros().get(posicion));
             biblioteca.getListaLibros().get(posicion).setNumCopiasDisponibles(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() - 1);
-            Tools.mensaje("pos", "libro reservado", "");
-          }else {
-            Tools.mensaje("neg", "operación cancelada por el usuario", "");
+            Tools.mensaje("pos", "libro reservado", "continuar");
           }
         } else if(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() == 0 && !repetido){
-
-          Tools.mensaje("neg", "lo sentimos, no disponemos de copias disponibles para el libro " + biblioteca.getListaLibros().get(posicion).getTitulo(), "");
+          Tools.mensaje("neg", "lo sentimos, no disponemos de copias disponibles para el libro " + biblioteca.getListaLibros().get(posicion).getTitulo(), "continuar");
         } else if(repetido){
-          Tools.mensaje("neg", "usted ya dispone de una copia de este libro", "");
+          Tools.mensaje("neg", "usted ya dispone de una copia de este libro", "continuar");
         }
-        Tools.continuar();
       }
     } else {
       Tools.mensaje("neg", "usted ya tiene 5 libros reservados", "");
@@ -136,8 +132,6 @@ public class User extends Persona {
             Tools.mensaje("pos", "libro devuelto", "continuar");
           }
         }
-      } else {
-        Tools.mensaje("neg", "operación cancelada por el usuario", "continuar");
       }
     }
   }

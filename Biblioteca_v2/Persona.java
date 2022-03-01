@@ -73,8 +73,15 @@ public abstract class Persona {
     return contraseña;
   }
 
-  public void setContraseña(String contraseña) {
-    this.contraseña = contraseña;
+  public boolean setContraseña(String contraseña) {
+    boolean valid = false;
+    if(contraseña.length() > 7){
+      this.contraseña = contraseña;
+      valid = true;
+    } else {
+      Tools.mensaje("neg", "la contraseña debe contener al menos 8 caracteres", "continuar");
+    }
+    return valid;
   }
 
   @Override

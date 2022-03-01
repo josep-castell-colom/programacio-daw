@@ -55,18 +55,19 @@ public class Admin extends Persona {
     String nif = Tools.prompt();
     boolean found = false;
     for(int j = 0; j < biblioteca.getListaAdmins().size(); j ++){
-      if(nif.equals(biblioteca.getListaAdmins().get(j).getNif())){
+      if(nif.equals(biblioteca.getListaAdmins().get(j).getNif()) && !nif.equals("josep")){
         found = true;
         Tools.mensaje("alert", "está a punto de eliminar el siguiente administrador\n" + biblioteca.getListaAdmins().get(j), "");
         if(Tools.confirmar()){
           biblioteca.getListaAdmins().remove(biblioteca.getListaAdmins().get(j));
-          Tools.mensaje("pos", "administrador eliminado", "");
-        } else {
-          Tools.mensaje("neg", "operación interrumpida", "");
+          Tools.mensaje("pos", "administrador eliminado", "continuar");
         }
-        Tools.continuar();
         j = biblioteca.getListaAdmins().size();
-      } 
+      } else if (nif.equals("josep")){
+        Tools.mensaje("neg", "no puede eliminar a Josep", "continuar");
+        j = biblioteca.getListaAdmins().size();
+        found = true;
+      }
     }
     if (!found){
       Tools.mensaje("neg", "no encontramos a ningún administrador con NIF " + nif, "continuar");
