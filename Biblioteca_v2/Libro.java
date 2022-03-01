@@ -187,7 +187,7 @@ public class Libro {
         Tools.br();
         i = lista.size();
       } else if(!titulo.equals(lista.get(i).getTitulo()) && i == lista.size() - 1){
-        Tools.mensaje("neg", "lo sentimos, el libro no está entre nuestros títulos");
+        Tools.mensaje("neg", "lo sentimos, el libro no está entre nuestros títulos", "");
       }
     }
     Tools.continuar();

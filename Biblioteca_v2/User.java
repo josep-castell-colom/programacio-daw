@@ -117,19 +117,7 @@ public class User extends Persona {
       }
     } else {
       Tools.mensaje("neg", "usted ya tiene 5 libros reservados", "");
-      boolean continua = false;
-      do {
-        System.out.println("1 - Devolver libro\n2 - Volver al menú");
-        String opt = Tools.prompt();
-        switch(opt){
-          case "1": devolverLibro(Main.getCurrentBiblioteca().getListaLibros());
-                    continua = true;
-                    break;
-          case "2": continua = true;
-          break;
-          case default: Tools.mensaje("alert", "introduce una de las opciones disponibles", "continuar");
-        }
-      }while(!continua);
+      Tools.maxReservas();
     }
   }
 
@@ -145,16 +133,13 @@ public class User extends Persona {
             lista.get(i).setNumCopiasDisponibles(lista.get(i).getNumCopiasDisponibles() + 1);
             this.getLibrosReservados().remove(this.getLibrosReservados().get(posicion));
             i = lista.size();
-            Tools.mensaje("pos", "libro devuelto", "");
+            Tools.mensaje("pos", "libro devuelto", "continuar");
           }
         }
       } else {
-        Tools.mensaje("neg", "operación cancelada por el usuario", "");
+        Tools.mensaje("neg", "operación cancelada por el usuario", "continuar");
       }
-    } else {
-      Tools.mensaje("neg", "el libro no está entre sus reservas", "");
     }
-    Tools.continuar();
   }
 
   public void mostrarLibrosReservados(){

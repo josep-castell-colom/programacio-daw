@@ -149,6 +149,25 @@ public abstract class Tools {
     }
   }
 
+  public static void maxReservas(){
+    boolean continua = false;
+    do {
+      System.out.println("1 - Ver sus libros reservados");
+      System.out.println("2 - Devolver libro");
+      System.out.println("3 - Volver al menú");
+      String opt = Tools.prompt();
+      switch(opt){
+        case "1": Main.getCurrentUser().mostrarLibrosReservados();
+                  break;
+        case "2": Main.getCurrentUser().devolverLibro(Main.getCurrentBiblioteca().getListaLibros());
+                  break;
+        case "3": continua = true;
+        break;
+        case default: Tools.mensaje("alert", "introduce una de las opciones disponibles", "continuar");
+      }
+    } while(!continua);
+  }
+
   public static void mainMenu(Biblioteca biblioteca){
     br();
     System.out.println();
@@ -204,7 +223,7 @@ public abstract class Tools {
                   break;
         case "2": Main.getCurrentUser().devolverLibro(biblioteca.getListaLibros());
                   break;
-        case "3": noEncontrar(Libro.buscarIsbn(biblioteca.getListaLibros()));
+        case "3": Libro.buscarIsbn(biblioteca.getListaLibros());
                   break;
         case "4": Libro.buscarTitulo(biblioteca.getListaLibros());
                   break;
