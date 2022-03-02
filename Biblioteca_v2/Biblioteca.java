@@ -73,17 +73,13 @@ public class Biblioteca {
   //METODOS
   public void mostrarLibros(){
     if(this.getListaLibros().size() > 0){
-      Tools.br();
-      System.out.println("[+] Mostrando todos los libros:");
-      Tools.br();
+      Tools.mensaje("pos", "mostrando todos los libros:", "");
       for(int i = 0; i < this.getListaLibros().size(); i ++){
         System.out.println(this.getListaLibros().get(i));
         Tools.br();
       }
     } else {
-      Tools.br();
-      System.out.println("[-] Esta biblioteca no dispone de ningún libro");
-      Tools.br();
+      Tools.mensaje("neg", "esta biblioteca no dispone de ningún libro", "continuar");
     }
     Tools.continuar();
   }
@@ -94,9 +90,7 @@ public class Biblioteca {
       for(int i = 0; i < this.getListaLibros().size(); i ++){
         if(this.getListaLibros().get(i).getNumCopiasDisponibles() > 0){
           found = true;
-          Tools.br();
-          System.out.println("[+] Mostrando los libros disponibles: ");
-          Tools.br();
+          Tools.mensaje("titulo", "mostrando los libros disponibles:","");
           i = this.getListaLibros().size();
         }
       }
@@ -109,22 +103,16 @@ public class Biblioteca {
             }
         }
       } else {
-        Tools.br();
-        System.out.println("[-] Lo sentimos, no hay ningún libro disponible");
-        Tools.br();
+        Tools.mensaje("neg", "lo sentimos, no hay ningún libro disponible","");
       }
     } else {
-      Tools.br();
-      System.out.println("[-] Esta biblioteca no dispone de ningún libro");
-      Tools.br();
+      Tools.mensaje("neg", "esta biblioteca no dispone de ningún libro","");
     }
     Tools.continuar();
   }
 
   public void mostrarLibrosReservados(){
-    Tools.br();
-    System.out.println("\t\tTODOS LOS LIBROS RESERVADOS");
-    Tools.br();
+    Tools.mensaje("titulo", "todos los libros reservados", "");
     boolean hayLibros = false;
     if(this.getListaUsuarios().size() > 0){
       for(int i = 0; i < this.getListaUsuarios().size(); i ++){
@@ -139,46 +127,53 @@ public class Biblioteca {
         }
       }
       if(!hayLibros){
-        Tools.br();
-        System.out.println("[-] Ningún usuario ha reservado ningún libro");
+        Tools.mensaje("neg", "ningún usuario ha reservado ningún libro", "");
       }
     } else {
-      Tools.br();
-      System.out.println("[-] No hay usuarios registrados");
+      Tools.mensaje("neg", "no hay usuarios registrados", "");
+    }
+    Tools.continuar();
+  }
+
+  public void mostrarSinReservas(){
+    Tools.mensaje("titulo", "mostrando libros sin ninguna reserva", "");
+    boolean reservas = false;
+    if(this.getListaLibros().size() > 0){
+      for(int i = 0; i < this.getListaLibros().size(); i ++){
+        if(this.getListaLibros().get(i).getNumCopias() == this.getListaLibros().get(i).getNumCopiasDisponibles()){
+          Tools.mensaje(this.getListaLibros().get(i).toString());
+          reservas = true;
+        }
+      }
+    }
+    if (!reservas) {
+      Tools.mensaje("neg", "ningún título tiene 0 reservas", "");
     }
     Tools.continuar();
   }
 
   public void mostrarUsuarios(){
     if(this.getListaUsuarios().size() > 0){
-      Tools.br();
-      System.out.println("\t\tMOSTRANDO TODOS LOS USUARIOS");
-      Tools.br();
+      Tools.mensaje("titulo", "mostrando todos los usuarios", "");
       for(int i = 0; i < this.getListaUsuarios().size(); i ++){
         System.out.println(this.getListaUsuarios().get(i));
         Tools.br();
       }
     } else {
-      Tools.br();
-      System.out.println("\n[-] Esta biblioteca no tiene ningún usuario\n");
-      Tools.br();
+      Tools.mensaje("neg", "esta biblioteca no tiene ningún usuario", "");
     }
     Tools.continuar();
   }
 
   public void mostrarAdmin(){
     if(this.getListaAdmins().size() > 0){
-      Tools.br();
-      System.out.println("\t\tMOSTRANDO TODOS LOS ADMINISTRADORES");
-      Tools.br();
+      Tools.mensaje("titulo", "mostrando todos los administradores", "");
       for(int i = 0; i < this.getListaAdmins().size(); i ++){
         System.out.println(this.getListaAdmins().get(i));
         Tools.br();
       }
     } else {
-      Tools.br();
-      System.out.println("\n[-] Esta biblioteca no tiene ningún administrador\n");
-      Tools.br();
+      Tools.mensaje("neg", "esta biblioteca no tiene ningún administrador", "");
     }
     Tools.continuar();
   }
