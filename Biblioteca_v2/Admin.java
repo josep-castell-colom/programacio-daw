@@ -34,7 +34,5 @@ public class Admin extends Persona {
       Tools.mensaje("neg", "no encontramos a ningún administrador con NIF " + nif, "continuar");
     }
   }
-
-  
 }
 
