@@ -7,15 +7,17 @@ public abstract class Persona {
   private String nombre;
   private String apellido1;
   private String apellido2;
+  private String edad;
   private String nif;
   private String contraseña;
 
   public Persona(){}
 
-  public Persona(String nombre, String apellido1, String apellido2, String nif, String contraseña) {
+  public Persona(String nombre, String apellido1, String apellido2, String edad, String nif, String contraseña) {
     this.nombre = nombre;
     this.apellido1 = apellido1;
     this.apellido2 = apellido2;
+    this.edad = edad;
     this.nif = nif;
     this.contraseña = contraseña;
   }
@@ -24,6 +26,7 @@ public abstract class Persona {
     nombre = persona.getNombre();
     apellido1 = persona.getApellido1();
     apellido2 = persona.getApellido2();
+    edad = persona.getEdad();
     nif = persona.getNif();
     contraseña = persona.getContraseña();
   }
@@ -61,6 +64,14 @@ public abstract class Persona {
     this.apellido2 = apellido2;
   }
 
+  public String getEdad(){
+    return this.edad;
+  }
+
+  public void setEdad(String edad){
+    this.edad = edad;
+  }
+
   public String getNif() {
     return nif;
   }
@@ -90,6 +101,7 @@ public abstract class Persona {
     return
     "NOMBRE:\t\t" + nombre +
     "\nAPELLIDOS:\t" + apellido1 + " " + apellido2 +
+    "\nEDAD:\t" + edad +
     "\nN.I.F.:\t\t" + nif +
     "\nCONTRASEÑA:\t" + contraseña;
   }

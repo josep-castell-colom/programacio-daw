@@ -4,19 +4,24 @@ import java.util.Scanner;
 
 public class User extends Persona {
   public static Scanner input = new Scanner(System.in);
-  private ArrayList<Libro> librosReservados= new ArrayList<Libro>() ;
+  private String tel;
+  private String direccion;
+  private String codigoPostal;
+  private String email;
+  private ArrayList<Reserva> librosReservados;
 
   public User(){}
 
-  public User(String nombre, String apellido1, String apellido2, String nif, String contraseña){
-    super(nombre, apellido1, apellido2, nif, contraseña);
+  public User(String nombre, String apellido1, String apellido2, String edad, String nif, String contraseña){
+    super(nombre, apellido1, apellido2, edad, nif, contraseña);
+    librosReservados = new ArrayList<Reserva>();
   }
 
-  public ArrayList<Libro> getLibrosReservados(){
+  public ArrayList<Reserva> getLibrosReservados(){
     return librosReservados;
   }
 
-  public void setLibrosReservados(ArrayList<Libro> lista){
+  public void setLibrosReservados(ArrayList<Reserva> lista){
     librosReservados = lista;
   }
 

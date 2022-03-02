@@ -6,8 +6,8 @@ public class Admin extends Persona {
 
   public Admin(){}
   
-  public Admin(String nombre, String apellido1, String apellido2, String nif, String contraseña){
-    super(nombre, apellido1, apellido2, nif, contraseña);
+  public Admin(String nombre, String apellido1, String apellido2, String edad, String nif, String contraseña){
+    super(nombre, apellido1, apellido2, edad, nif, contraseña);
   }
 
   public static void eliminarAdmin(Biblioteca biblioteca){
