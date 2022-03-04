@@ -1,5 +1,6 @@
 package Biblioteca_v2;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main {
@@ -42,6 +43,7 @@ public class Main {
   }
 
   public static void main(String[] args) {
+    Date date = new Date();
     currentBiblioteca = new Biblioteca("Biblioteca Virtual del CIFP FBMoll");
     ArrayList<Libro> libreria = new ArrayList<Libro>();
     Libro libro = new Libro("libro", "titulo", "autor", "editorial", 5, 4);
@@ -54,17 +56,22 @@ public class Main {
     libreria.add(libro4);
     Libro libro5 = new Libro("libro5", "titulo5", "autor5", "editorial5", 4, 3);
     libreria.add(libro5);
-    ArrayList<Libro> libreriaUsuario = new ArrayList<Libro>();
-    libreriaUsuario.add(libro);
-    libreriaUsuario.add(libro2);
-    libreriaUsuario.add(libro3);
-    libreriaUsuario.add(libro4);
-    libreriaUsuario.add(libro5);
+    ArrayList<Reserva> listaReservas = new ArrayList<Reserva>();
+    Reserva reserva1 = new Reserva(libro, date);
+    listaReservas.add(reserva1);
+    Reserva reserva2 = new Reserva(libro2, date);
+    listaReservas.add(reserva2);
+    Reserva reserva3 = new Reserva(libro3, date);
+    listaReservas.add(reserva3);
+    Reserva reserva4 = new Reserva(libro4, date);
+    listaReservas.add(reserva4);
+    Reserva reserva5 = new Reserva(libro5, date);
+    listaReservas.add(reserva5);
     currentBiblioteca.setListaLibros(libreria);
     User usuario1 = new User("Toni", "Mateu", "Martorell", "34", "toni", "hola");
     currentBiblioteca.getListaUsuarios().add(usuario1);
     User usuario2 = new User("Maria", "Amengual", "Bestard", "25", "maria", "hola");
-    usuario2.setLibrosReservados(libreriaUsuario);
+    usuario2.setListaReservas(listaReservas);
     currentBiblioteca.getListaUsuarios().add(usuario2);
     currentUser = usuario1;
     Admin admin1 = new Admin("Josep", "Castell", "Colom", "22", "josep", "hola");

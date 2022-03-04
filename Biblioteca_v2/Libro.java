@@ -175,6 +175,28 @@ public class Libro {
     return posicion;
   }
 
+  public static int buscarIsbnReserva(ArrayList<Reserva> lista){
+    Tools.mensaje("titulo", "buscar libro por isbn", "");
+    int posicion = -1;
+    String isbn = new String();
+    System.out.println("Introduce el ISBN que quiere buscar >");
+    isbn = input.nextLine();
+    boolean encontrado = false;
+    for(int i = 0; i < lista.size(); i ++){
+      if(isbn.equals(lista.get(i).getLibroReservado().getIsbn())){
+        posicion = i;
+        Tools.mensaje("pos", "libro encontrado:\n\n" + lista.get(i).getLibroReservado(), "");
+        i = lista.size();
+        encontrado = true;
+      }
+    }
+    if(!encontrado){
+      Tools.mensaje("neg", "libro no encontrado", "");
+    }
+    Tools.continuar();
+    return posicion;
+  }
+
   // BUSCAR TITULO
   public static void buscarTitulo(ArrayList<Libro> lista){
     Tools.mensaje("titulo", "buscar libro por título", "");

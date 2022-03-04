@@ -116,12 +116,13 @@ public class Biblioteca {
     boolean hayLibros = false;
     if(this.getListaUsuarios().size() > 0){
       for(int i = 0; i < this.getListaUsuarios().size(); i ++){
-        if(this.getListaUsuarios().get(i).getLibrosReservados().size() > 0){
+        if(this.getListaUsuarios().get(i).getListaReservas().size() > 0){
           hayLibros = true;
           System.out.println("[+] Mostrando libros reservados por " + this.getListaUsuarios().get(i).getNombre());
-          for(int j = 0; j < this.getListaUsuarios().get(i).getLibrosReservados().size(); j ++){
+          for(int j = 0; j < this.getListaUsuarios().get(i).getListaReservas().size(); j ++){
             Tools.br();
-            System.out.println(this.getListaUsuarios().get(i).getLibrosReservados().get(j));
+            System.out.println(this.getListaUsuarios().get(i).getListaReservas().get(j).getLibroReservado()
+            );
             Tools.br();
           }
         }

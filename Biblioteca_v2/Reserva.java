@@ -1,5 +1,5 @@
 package Biblioteca_v2;
-import java.sql.Date;
+import java.util.Date;
 
 public class Reserva {
   private Libro libroReservado;
@@ -36,7 +36,7 @@ public class Reserva {
   @Override
   public String toString(){
     String info = 
-    "Libro reservado: " + this.libroReservado + 
+    "Libro reservado:\n" + this.libroReservado + 
     "\nFecha de la reserva: " + this.fechaReserva;
     return info;
   }
