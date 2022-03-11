@@ -187,6 +187,10 @@ public abstract class Tools {
     return out;
   }
 
+  public static boolean checkType(Object candidate, Class<?> type) {
+    return type.isInstance(candidate);
+  }
+
   public static void mainMenu(Biblioteca biblioteca){
     br();
     System.out.println();

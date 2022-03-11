@@ -101,23 +101,33 @@ public class Biblioteca {
   public void mostrarLibrosReservados(){
     Tools.mensaje("titulo", "todos los libros reservados", "");
     boolean hayLibros = false;
-    if(this.getListaUsuarios().size() > 0){
-      for(int i = 0; i < this.getListaUsuarios().size(); i ++){
-        if(this.getListaUsuarios().get(i).getListaReservas().size() > 0){
-          hayLibros = true;
-          System.out.println("[+] Mostrando libros reservados por " + this.getListaUsuarios().get(i).getNombre());
-          for(int j = 0; j < this.getListaUsuarios().get(i).getListaReservas().size(); j ++){
-            Tools.br();
-            System.out.println(this.getListaUsuarios().get(i).getListaReservas().get(j).getLibroReservado()
-            );
-            Tools.br();
+    boolean hayUsuarios = false;
+    if(this.getListaPersonas().size() > 0){
+      ArrayList<User> listaUsuarios = new ArrayList<User>();
+      for(int i = 0; i < this.getListaPersonas().size(); i ++){
+        if(Tools.checkType(this.getListaPersonas().get(i), User.class)){
+          listaUsuarios.add((User)this.getListaPersonas().get(i));
+          hayUsuarios = true;
+        }
+      }
+      if(listaUsuarios.size() > 0){
+        for(int i = 0; i < listaUsuarios.size(); i ++){
+          if(listaUsuarios.get(i).getListaReservas().size() > 0){
+            hayLibros = true;
+            System.out.println("[+] Mostrando libros reservados por " + listaUsuarios.get(i).getNombre());
+            for(int j = 0; j < listaUsuarios.get(i).getListaReservas().size(); j ++){
+              Tools.br();
+              System.out.println(listaUsuarios.get(i).getListaReservas().get(j).getLibroReservado());
+              Tools.br();
+            }
           }
         }
       }
-      if(!hayLibros){
-        Tools.mensaje("neg", "ningún usuario ha reservado ningún libro", "");
-      }
-    } else {
+    }
+    if(!hayLibros){
+      Tools.mensaje("neg", "ningún usuario ha reservado ningún libro", "");
+    }
+    if(!hayUsuarios) {
       Tools.mensaje("neg", "no hay usuarios registrados", "");
     }
     Tools.continuar();
@@ -141,28 +151,38 @@ public class Biblioteca {
   }
 
   public void mostrarUsuarios(){
-    if(this.getListaUsuarios().size() > 0){
+    if(this.getListaPersonas().size() > 0){
+      boolean found = false;
       Tools.mensaje("titulo", "mostrando todos los usuarios", "");
-      for(int i = 0; i < this.getListaUsuarios().size(); i ++){
-        System.out.println(this.getListaUsuarios().get(i));
-        Tools.br();
+      for(int i = 0; i < this.getListaPersonas().size(); i ++){
+        if(Tools.checkType(this.getListaPersonas().get(i), User.class)){
+          found = true;
+          System.out.println(this.getListaPersonas().get(i));
+          Tools.br();
+        }
       }
-    } else {
-      Tools.mensaje("neg", "esta biblioteca no tiene ningún usuario", "");
+      if(!found) {
+        Tools.mensaje("neg", "esta biblioteca no tiene ningún usuario", "");
+      } 
     }
     Tools.continuar();
   }
 
   public void mostrarAdmin(){
-    if(this.getListaAdmins().size() > 0){
+    if(this.getListaPersonas().size() > 0){
+      boolean found = false;
       Tools.mensaje("titulo", "mostrando todos los administradores", "");
-      for(int i = 0; i < this.getListaAdmins().size(); i ++){
-        System.out.println(this.getListaAdmins().get(i));
-        Tools.br();
+      for(int i = 0; i < this.getListaPersonas().size(); i ++){
+        if(Tools.checkType(this.getListaPersonas().get(i), Admin.class)){
+          System.out.println(this.getListaPersonas().get(i));
+          Tools.br();
+          found = true;
+        }
       }
-    } else {
-      Tools.mensaje("neg", "esta biblioteca no tiene ningún administrador", "");
-    }
+      if(!found) {
+        Tools.mensaje("neg", "esta biblioteca no tiene ningún administrador", "");
+      }
+    } 
     Tools.continuar();
   }
 }

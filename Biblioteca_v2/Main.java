@@ -69,13 +69,13 @@ public class Main {
     listaReservas.add(reserva5);
     currentBiblioteca.setListaLibros(libreria);
     User usuario1 = new User("Toni", "Mateu", "Martorell", "34", "toni", "hola");
-    currentBiblioteca.getListaUsuarios().add(usuario1);
+    currentBiblioteca.getListaPersonas().add(usuario1);
     User usuario2 = new User("Maria", "Amengual", "Bestard", "25", "maria", "hola");
     usuario2.setListaReservas(listaReservas);
-    currentBiblioteca.getListaUsuarios().add(usuario2);
+    currentBiblioteca.getListaPersonas().add(usuario2);
     currentUser = usuario1;
     Admin admin1 = new Admin("Josep", "Castell", "Colom", "22", "josep", "hola");
-    currentBiblioteca.getListaAdmins().add(admin1);
+    currentBiblioteca.getListaPersonas().add(admin1);
     currentAdmin = admin1;
     Tools.mainMenu(currentBiblioteca);
   }
