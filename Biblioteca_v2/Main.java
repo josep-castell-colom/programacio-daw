@@ -68,13 +68,13 @@ public class Main {
     Reserva reserva5 = new Reserva(libro5, date);
     listaReservas.add(reserva5);
     currentBiblioteca.setListaLibros(libreria);
-    User usuario1 = new User("Toni", "Mateu", "Martorell", "34", "toni", "hola");
+    User usuario1 = new User("Toni", "Mateu", "Martorell", "34", "666111222", "Calle Patata 23", "07156", "toni@gmail.com");
     currentBiblioteca.getListaPersonas().add(usuario1);
-    User usuario2 = new User("Maria", "Amengual", "Bestard", "25", "maria", "hola");
+    User usuario2 = new User("Maria", "Amengual", "Bestard", "25", "666222111", "Calle Coliflor 15", "07456", "mariapatata@hotmail.com");
     usuario2.setListaReservas(listaReservas);
     currentBiblioteca.getListaPersonas().add(usuario2);
     currentUser = usuario1;
-    Admin admin1 = new Admin("Josep", "Castell", "Colom", "22", "josep", "hola");
+    Admin admin1 = new Admin("Josep", "Castell", "Colom", "22", "Jefe Máximo", "josep", "hola");
     currentBiblioteca.getListaPersonas().add(admin1);
     currentAdmin = admin1;
     Tools.mainMenu(currentBiblioteca);

@@ -11,18 +11,16 @@ public abstract class Persona {
 
   public Persona(){}
 
-  public Persona(String nombre, String apellido1, String apellido2, String edad, String nif, String contraseña) {
-    this.nombre = nombre;
-    this.apellido1 = apellido1;
-    this.apellido2 = apellido2;
-    this.edad = edad;
+  public Persona(String nombre, String apellido1, String apellido2, String edad) {
+    this.setNombre(nombre);
+    this.setApellidos(apellido1, apellido2);
+    this.setEdad(edad);
   }
 
   public Persona(Persona persona){
-    nombre = persona.getNombre();
-    apellido1 = persona.getApellido1();
-    apellido2 = persona.getApellido2();
-    edad = persona.getEdad();
+    this.setNombre(persona.getNombre());
+    this.setApellidos(persona.getApellido1(), persona.getApellido2());
+    this.setEdad(persona.getEdad());
   }
 
   public String getNombre() {
@@ -74,98 +72,57 @@ public abstract class Persona {
     "\nEDAD:\t" + edad;
   }
 
-  public static Pair validar(Biblioteca biblioteca, String opcion){
-    ArrayList<Persona> listaPersonas = biblioteca.getListaPersonas();
+  public static Pair validarAdmin(Biblioteca biblioteca){
+    ArrayList<Admin> listaAdmins = new ArrayList<Admin>();
     Pair pair = new Pair();
     boolean found = false;
     boolean valid = false;
-    Tools.mensaje("titulo", "inicie sesión", "");
-    System.out.println("Introduce N.I.F.: ");
-    String nif = Tools.prompt();
-
-    for(int j = 0; j < listaPersonas.size() && !found; j ++){
-      if(nif.equals(listaPersonas.get(j).getNif())){
-        found = true;
-        System.out.println();
-        System.out.println("Introduce contraseña:");
-        String contraseña = input.nextLine();
-        for(int k = 0; k < listaPersonas.size() && !valid; k ++){
-          if(contraseña.equals(listaPersonas.get(k).getContraseña()) && nif.equals(listaPersonas.get(k).getNif())){
-            valid = true;
-            Tools.mensaje("Bienvenid@ " + listaPersonas.get(k).getNombre());
-            pair.setAdmin(listaPersonas.get(k));
-            pair.setValid(true);
+    for(int i = 0; i < biblioteca.getListaPersonas().size(); i ++){
+      if(Tools.checkType(biblioteca.getListaPersonas().get(i), Admin.class)){
+        listaAdmins.add((Admin)biblioteca.getListaPersonas().get(i));
+      }
+    }
+    if(listaAdmins.size() > 0){
+      Tools.mensaje("titulo", "inicie sesión", "");
+      System.out.println("Introduce N.I.F.: ");
+      String nif = Tools.prompt();
+  
+      for(int i = 0; i < listaAdmins.size() && !found; i ++){
+        if(nif.equals(listaAdmins.get(i).getNif())){
+          found = true;
+          System.out.println();
+          System.out.println("Introduce contraseña:");
+          String contraseña = input.nextLine();
+          for(int k = 0; k < listaAdmins.size() && !valid; k ++){
+            if(contraseña.equals(listaAdmins.get(k).getContraseña()) && nif.equals(listaAdmins.get(k).getNif())){
+              valid = true;
+              Tools.mensaje("Bienvenid@ " + listaAdmins.get(k).getNombre());
+              pair.setAdmin(listaAdmins.get(k));
+              pair.setValid(true);
+            }
           }
         }
       }
     }
-    
     if(!found && !valid){
       Tools.mensaje("neg", "introduce un NIF válido", "continuar");
     }
     if(found && !valid){
-      Tools.mensaje("neg", "contraseña incorrecta", "continuar");
+      Tools.mensaje("neg", "contraseña incorrecta", "");
+      Tools.repetirContraseña();
     }
     return pair;
   }
 
-  public static void añadirPersona(String modo, Biblioteca biblioteca){
-    switch(modo){
-      case "user":  Tools.mensaje("titulo", "añadir usuario", "");
-                    break;
-      case "admin": Tools.mensaje("titulo", "añadir administrador", "");
-    }
-    System.out.println("Nombre");
-    String nombre = Tools.nameFirstUpperCase(Tools.prompt());
-    System.out.println("Apellido1");
-    String apellido1 = Tools.nameFirstUpperCase(Tools.prompt());
-    System.out.println("Apellido2");
-    String apellido2 = Tools.nameFirstUpperCase(Tools.prompt());
-    System.out.println("N.I.F.");
-    String nif = Tools.prompt();
-    String contraseña;
-    switch(modo){
-      case "user":
-        User user = new User();
-        user.setNombre(nombre);
-        user.setApellidos(apellido1, apellido2);
-        user.setNif(nif);
-        System.out.println("Contraseña");
-        contraseña = Tools.prompt();
-        boolean userPassOk = user.setContraseña(contraseña);
-        if(!userPassOk){
-          while(!userPassOk && Tools.repetirContraseña()){
-            System.out.println("Contraseña");
-            contraseña = Tools.prompt();
-            userPassOk = user.setContraseña(contraseña);
-          }
-        } 
-        if (userPassOk) {
-          biblioteca.getListaUsuarios().add(user);
-          Tools.mensaje("pos", "usuario añadido: \n\n" + user, "continuar");
-        }
-          break;
-      case "admin":
-        Admin admin = new Admin();
-        admin.setNombre(nombre);
-        admin.setApellidos(apellido1, apellido2);
-        admin.setNif(nif);
-        System.out.println("Contraseña");
-        contraseña = Tools.prompt();
-        boolean adminPassOk = admin.setContraseña(contraseña);
-        if(!adminPassOk){
-          while(!adminPassOk && Tools.repetirContraseña()){
-            System.out.println("Contraseña");
-            contraseña = Tools.prompt();
-            adminPassOk = admin.setContraseña(contraseña);
-          }
-        } 
-        if (adminPassOk) {
-          biblioteca.getListaAdmins().add(admin);
-          Tools.mensaje("pos", "administrador añadido: \n\n" + admin, "continuar");
-        }
-    }
-
-    
+  public void solicitarDatos(){
+        Tools.mensaje("titulo", "modificar datos", "");
+        System.out.println("Nombre");
+        this.setNombre(Tools.nameFirstUpperCase(Tools.prompt()));
+        System.out.println("Primer apellido");
+        this.setApellido1(Tools.nameFirstUpperCase(Tools.prompt()));
+        System.out.println("Segundo apellido");
+        this.setApellido2(Tools.nameFirstUpperCase(Tools.prompt()));
+        System.out.println("Edad");
+        this.setEdad(Tools.prompt());
   }
 }

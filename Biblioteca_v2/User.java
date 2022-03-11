@@ -13,8 +13,12 @@ public class User extends Persona {
 
   public User(){}
 
-  public User(String nombre, String apellido1, String apellido2, String edad, String nif, String contraseña){
-    super(nombre, apellido1, apellido2, edad, nif, contraseña);
+  public User(String nombre, String apellido1, String apellido2, String edad, String tel, String direccion, String codPost, String email){
+    super(nombre, apellido1, apellido2, edad);
+    this.setTel(tel);
+    this.setDireccion(direccion);
+    this.setCodigoPostal(codPost);
+    this.setEmail(email);
     listaReservas = new ArrayList<Reserva>();
   }
 
@@ -64,6 +68,37 @@ public class User extends Persona {
 
   public void setEmail(String email) {
     this.email = email;
+  }
+
+  @Override
+  public String toString(){
+    return
+    "NOMBRE:\t\t\t" + super.getNombre()+
+    "\nAPELLIDOS:\t\t" + super.getApellidos() +
+    "\nEDAD:\t\t\t" + super.getEdad() +
+    "\nTELÉFONO:\t\t" + tel +
+    "\nDIRECCIÓN:\t\t" + direccion +
+    "\nCÓDIGO POSTAL:\t\t" + codigoPostal +
+    "\nCORREO ELECTRÓNICO:\t" + email;
+  }
+
+  @Override
+  public void solicitarDatos(){
+    Tools.mensaje("titulo", "modificar datos", "");
+    System.out.println("Nombre");
+    this.setNombre(Tools.nameFirstUpperCase(Tools.prompt()));
+    System.out.println("Primer apellido");
+    this.setApellido1(Tools.nameFirstUpperCase(Tools.prompt()));
+    System.out.println("Segundo apellido");
+    this.setApellido2(Tools.nameFirstUpperCase(Tools.prompt()));
+    System.out.println("Teléfono");
+    this.setTel(Tools.prompt());
+    System.out.println("Dirección (calle y número)");
+    this.setDireccion(Tools.prompt());
+    System.out.println("Código postal");
+    this.setCodigoPostal(Tools.prompt());
+    System.out.println("Correo electrónico");
+    this.setCodigoPostal(Tools.prompt());
   }
 
   public void reservarLibro(Biblioteca biblioteca){

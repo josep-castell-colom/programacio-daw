@@ -10,8 +10,11 @@ public class Admin extends Persona {
 
   public Admin(){}
   
-  public Admin(String nombre, String apellido1, String apellido2, String edad, String nif, String contraseña){
-    super(nombre, apellido1, apellido2, edad, nif, contraseña);
+  public Admin(String nombre, String apellido1, String apellido2, String edad, String puesto, String nif, String contraseña){
+    super(nombre, apellido1, apellido2, edad);
+    this.setPuesto(puesto);
+    this.setNif(nif);
+    this.setContraseña(contraseña);
   }
 
   public String getPuesto() {
@@ -38,29 +41,29 @@ public class Admin extends Persona {
     this.contraseña = contraseña;
   }
 
-  public static void eliminarAdmin(Biblioteca biblioteca){
-    Tools.mensaje("titulo", "eliminar administrador", "");
-    System.out.println("Introduce el N.I.F");
-    String nif = Tools.prompt();
-    boolean found = false;
-    for(int j = 0; j < biblioteca.getListaAdmins().size(); j ++){
-      if(nif.equals(biblioteca.getListaAdmins().get(j).getNif()) && !nif.equals("josep")){
-        found = true;
-        Tools.mensaje("alert", "está a punto de eliminar el siguiente administrador\n" + biblioteca.getListaAdmins().get(j), "");
-        if(Tools.confirmar()){
-          biblioteca.getListaAdmins().remove(biblioteca.getListaAdmins().get(j));
-          Tools.mensaje("pos", "administrador eliminado", "continuar");
-        }
-        j = biblioteca.getListaAdmins().size();
-      } else if (nif.equals("josep")){
-        Tools.mensaje("neg", "no puede eliminar a Josep", "continuar");
-        j = biblioteca.getListaAdmins().size();
-        found = true;
-      }
-    }
-    if (!found){
-      Tools.mensaje("neg", "no encontramos a ningún administrador con NIF " + nif, "continuar");
-    }
+  @Override
+  public String toString(){
+    return
+    "PUESTO: " + puesto +
+    "\nNIF: " + nif +
+    "\nCONTRASEÑA: " + contraseña;
+  }
+
+  @Override
+  public void solicitarDatos(){
+    Tools.mensaje("titulo", "modificar datos", "");
+    System.out.println("Nombre");
+    this.setNombre(Tools.nameFirstUpperCase(Tools.prompt()));
+    System.out.println("Primer apellido");
+    this.setApellido1(Tools.nameFirstUpperCase(Tools.prompt()));
+    System.out.println("Segundo apellido");
+    this.setApellido2(Tools.nameFirstUpperCase(Tools.prompt()));
+    System.out.println("Puesto de trabajo");
+    this.setPuesto(Tools.prompt());
+    System.out.println("Nif");
+    this.setNif(Tools.prompt());
+    System.out.println("Contraseña");
+    this.setContraseña(Tools.prompt());
   }
 }
 

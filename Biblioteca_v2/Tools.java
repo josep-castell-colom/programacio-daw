@@ -199,17 +199,23 @@ public abstract class Tools {
     mensaje("titulo", biblioteca.getNombre(), "");
     do {
       mensaje("titulo", "bienvenido", "");
-      System.out.println("1 - Menú de usuario");
-      System.out.println("2 - Añadir usuario");
-      System.out.println("3 - Manú de administrador");
+      System.out.println("1 - Buscar libro por ISBN");
+      System.out.println("2 - Buscar libro por título");
+      System.out.println("3 - Ver todos los libros");
+      System.out.println("4 - Ver sólo los libros disponibles");
+      System.out.println("5 - Menú de administrador");
       System.out.println("0 - Salir");
       String opt = prompt();
       switch(opt){
-        case "1": userMenu(biblioteca);
+        case "1": Libro.buscarIsbn(biblioteca.getListaLibros());
                   break;
-        case "2": Persona.añadirPersona("user", biblioteca);
+        case "2": Libro.buscarTitulo(biblioteca.getListaLibros());
                   break;
-        case "3": pair = Persona.validar(biblioteca, "admin");
+        case "3": biblioteca.mostrarLibros();
+                  break;
+        case "4": biblioteca.mostrarDisponibles();
+                  break;
+        case "5": pair = Persona.validarAdmin(biblioteca);
                   if(pair.getValid()){
                     Main.setCurrentAdmin(pair.getAdmin());
                     adminMenu(biblioteca);
@@ -220,45 +226,6 @@ public abstract class Tools {
                   System.out.println("Hasta pronto! ;)");
                   break;
         default:  mensaje("alert", "por favor, introduce una de las opciones disponibles", "");
-      }
-    } while (Main.getOn());
-  }
-
-  public static void userMenu(Biblioteca biblioteca){
-    do {
-    mensaje("titulo", "menú de usuario", "");
-      System.out.println("1 - Reservar libro");
-      System.out.println("2 - Devolver libro");
-      System.out.println("3 - Buscar libro por ISBN");
-      System.out.println("4 - Buscar libro por título");
-      System.out.println("5 - Ver todos los libros");
-      System.out.println("6 - Ver sólo los libros disponibles");
-      System.out.println("7 - Ver sus libros reservados");
-      System.out.println("9 - Volver al menú principal");
-      System.out.println("0 - Salir");
-      String opt = prompt();
-      switch (opt){
-        case "1": Main.getCurrentUser().reservarLibro(biblioteca);
-                  break;
-        case "2": Main.getCurrentUser().devolverLibro(biblioteca.getListaLibros());
-                  break;
-        case "3": Libro.buscarIsbn(biblioteca.getListaLibros());
-                  break;
-        case "4": Libro.buscarTitulo(biblioteca.getListaLibros());
-                  break;
-        case "5": biblioteca.mostrarLibros();
-                  break;
-        case "6": biblioteca.mostrarDisponibles();
-                  break;
-        case "7": Main.getCurrentUser().mostrarLibrosReservados();
-                  break;
-        case "9": mainMenu(biblioteca);
-                  break;
-        case "0": Main.setOn(false);
-                  br();
-                  System.out.println("Hasta pronto! ;)");
-                  break;
-        default:  mensaje("alert", "por favor, introduce una de las opciones disponibles", "continuar");
       }
     } while (Main.getOn());
   }
@@ -304,13 +271,16 @@ public abstract class Tools {
                   break;
         case "8": biblioteca.mostrarLibrosReservados();
                   break;
-        case "11":Persona.añadirPersona("user", biblioteca);
+        case "11":User user = new User();
+                  user.solicitarDatos();
                   break;
         case "12":Tools.mensaje("neg", "en construcción", ""); // Persona.eliminarPersona(biblioteca);
                   break;
-        case "13":Persona.añadirPersona("admin", biblioteca);
+        case "13":Admin admin = new Admin();
+                  admin.solicitarDatos();
                   break;
-        case "14":Admin.eliminarAdmin(biblioteca);
+        case "14":
+                  //Admin.eliminarAdmin(biblioteca);
                   break;
         case "15":biblioteca.mostrarUsuarios();
                   break;
