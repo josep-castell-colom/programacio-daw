@@ -201,11 +201,7 @@ public abstract class Tools {
       System.out.println("0 - Salir");
       String opt = prompt();
       switch(opt){
-        case "1": pair = Persona.validar(biblioteca, "user");
-                  if(pair.getValid()){
-                    Main.setCurrentUser(pair.getUser());
-                    userMenu(biblioteca);
-                  }
+        case "1": userMenu(biblioteca);
                   break;
         case "2": Persona.añadirPersona("user", biblioteca);
                   break;
@@ -306,7 +302,7 @@ public abstract class Tools {
                   break;
         case "11":Persona.añadirPersona("user", biblioteca);
                   break;
-        case "12":User.eliminarUser(biblioteca);
+        case "12":Tools.mensaje("neg", "en construcción", ""); // Persona.eliminarPersona(biblioteca);
                   break;
         case "13":Persona.añadirPersona("admin", biblioteca);
                   break;

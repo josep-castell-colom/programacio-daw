@@ -4,10 +4,38 @@ import java.util.Scanner;
 public class Admin extends Persona {
   public static Scanner input = new Scanner(System.in);
 
+  private String puesto;
+  private String nif;
+  private String contraseña;
+
   public Admin(){}
   
   public Admin(String nombre, String apellido1, String apellido2, String edad, String nif, String contraseña){
     super(nombre, apellido1, apellido2, edad, nif, contraseña);
+  }
+
+  public String getPuesto() {
+    return puesto;
+  }
+
+  public void setPuesto(String puesto) {
+    this.puesto = puesto;
+  }
+
+  public String getNif() {
+    return nif;
+  }
+
+  public void setNif(String nif) {
+    this.nif = nif;
+  }
+
+  public String getContraseña() {
+    return contraseña;
+  }
+
+  public void setContraseña(String contraseña) {
+    this.contraseña = contraseña;
   }
 
   public static void eliminarAdmin(Biblioteca biblioteca){

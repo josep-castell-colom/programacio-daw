@@ -25,9 +25,7 @@ public class User extends Persona {
   public void setListaReservas(ArrayList<Reserva> lista){
     listaReservas = lista;
   }
-
   
-
   public static Scanner getInput() {
     return input;
   }
@@ -66,33 +64,6 @@ public class User extends Persona {
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public static void eliminarUser(Biblioteca biblioteca){
-    Tools.mensaje("titulo", "eliminar usuario", "");
-    System.out.println("Introduce el N.I.F > ");
-    String nif = input.nextLine();
-    boolean found = false;
-    for(int i = 0; i < biblioteca.getListaUsuarios().size(); i ++){
-      if(nif.equals(biblioteca.getListaUsuarios().get(i).getNif())){
-        found = true;
-        if(biblioteca.getListaUsuarios().get(i).getListaReservas().size() == 0){
-          Tools.mensaje("alert", "está a punto de eliminar el siguiente usuario:\n" + biblioteca.getListaUsuarios().get(i), "");
-          if(Tools.confirmar()){
-            biblioteca.getListaUsuarios().remove(biblioteca.getListaUsuarios().get(i));
-            Tools.mensaje("pos", "usuario eliminado", "continuar");
-          } else {
-            Tools.mensaje("neg", "operación interrumpida", "continuar");
-          }
-          i = biblioteca.getListaUsuarios().size();
-        } else {
-          Tools.mensaje("neg", "no se puede eliminar el usuario porque tiene libros reservados\n", "continuar");
-        }
-      } 
-    }
-    if (!found){
-      Tools.mensaje("neg", "no encontramos a nadie con nif " + nif, "continuar");
-    }
   }
 
   public void reservarLibro(Biblioteca biblioteca){

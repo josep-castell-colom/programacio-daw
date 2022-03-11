@@ -8,8 +8,6 @@ public abstract class Persona {
   private String apellido1;
   private String apellido2;
   private String edad;
-  private String nif;
-  private String contraseña;
 
   public Persona(){}
 
@@ -18,8 +16,6 @@ public abstract class Persona {
     this.apellido1 = apellido1;
     this.apellido2 = apellido2;
     this.edad = edad;
-    this.nif = nif;
-    this.contraseña = contraseña;
   }
 
   public Persona(Persona persona){
@@ -27,8 +23,6 @@ public abstract class Persona {
     apellido1 = persona.getApellido1();
     apellido2 = persona.getApellido2();
     edad = persona.getEdad();
-    nif = persona.getNif();
-    contraseña = persona.getContraseña();
   }
 
   public String getNombre() {
@@ -72,85 +66,40 @@ public abstract class Persona {
     this.edad = edad;
   }
 
-  public String getNif() {
-    return nif;
-  }
-
-  public void setNif(String nif) {
-    this.nif = nif;
-  }
-
-  public String getContraseña() {
-    return contraseña;
-  }
-
-  public boolean setContraseña(String contraseña) {
-    boolean valid = false;
-    if(contraseña.length() > 7){
-      this.contraseña = contraseña;
-      valid = true;
-    } else {
-      Tools.mensaje("neg", "la contraseña debe contener al menos 8 caracteres", "continuar");
-      
-    }
-    return valid;
-  }
-
   @Override
   public String toString(){
     return
     "NOMBRE:\t\t" + nombre +
     "\nAPELLIDOS:\t" + apellido1 + " " + apellido2 +
-    "\nEDAD:\t" + edad +
-    "\nN.I.F.:\t\t" + nif +
-    "\nCONTRASEÑA:\t" + contraseña;
+    "\nEDAD:\t" + edad;
   }
 
   public static Pair validar(Biblioteca biblioteca, String opcion){
-    ArrayList<User> listaUsuarios = biblioteca.getListaUsuarios();
-    ArrayList<Admin> listaAdmins = biblioteca.getListaAdmins();
+    ArrayList<Persona> listaPersonas = biblioteca.getListaPersonas();
     Pair pair = new Pair();
     boolean found = false;
     boolean valid = false;
     Tools.mensaje("titulo", "inicie sesión", "");
     System.out.println("Introduce N.I.F.: ");
     String nif = Tools.prompt();
-    if(opcion.equals("user")){
-      for(int i = 0; i < listaUsuarios.size() && !found; i ++){
-        if(nif.equals(listaUsuarios.get(i).getNif())){
-          found = true;
-          System.out.println();
-          System.out.println("Introduce contraseña:");
-          String contraseña = Tools.prompt();
-          for(int j = 0; j < listaUsuarios.size() && !valid; j ++){
-            if(contraseña.equals(listaUsuarios.get(i).getContraseña()) && nif.equals(listaUsuarios.get(i).getNif())){
-              valid = true;
-              Tools.mensaje("Bienvenid@ " + listaUsuarios.get(i).getNombre());
-              pair.setUser(listaUsuarios.get(i));
-              pair.setValid(true);
-            }
+
+    for(int j = 0; j < listaPersonas.size() && !found; j ++){
+      if(nif.equals(listaPersonas.get(j).getNif())){
+        found = true;
+        System.out.println();
+        System.out.println("Introduce contraseña:");
+        String contraseña = input.nextLine();
+        for(int k = 0; k < listaPersonas.size() && !valid; k ++){
+          if(contraseña.equals(listaPersonas.get(k).getContraseña()) && nif.equals(listaPersonas.get(k).getNif())){
+            valid = true;
+            Tools.mensaje("Bienvenid@ " + listaPersonas.get(k).getNombre());
+            pair.setAdmin(listaPersonas.get(k));
+            pair.setValid(true);
           }
         }
       }
     }
-    if(opcion.equals("admin")){
-      for(int j = 0; j < listaAdmins.size() && !found; j ++){
-        if(nif.equals(listaAdmins.get(j).getNif())){
-          found = true;
-          System.out.println();
-          System.out.println("Introduce contraseña:");
-          String contraseña = input.nextLine();
-          for(int k = 0; k < listaAdmins.size() && !valid; k ++){
-            if(contraseña.equals(listaAdmins.get(k).getContraseña()) && nif.equals(listaAdmins.get(k).getNif())){
-              valid = true;
-              Tools.mensaje("Bienvenid@ " + listaAdmins.get(k).getNombre());
-              pair.setAdmin(listaAdmins.get(k));
-              pair.setValid(true);
-            }
-          }
-        }
-      }
-    }
+    
     if(!found && !valid){
       Tools.mensaje("neg", "introduce un NIF válido", "continuar");
     }

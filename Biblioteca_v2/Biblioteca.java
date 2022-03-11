@@ -4,28 +4,24 @@ import java.util.ArrayList;
 public class Biblioteca {
   private String nombre;
   private ArrayList<Libro> listaLibros;
-  private ArrayList<User> listaUsuarios;
-  private ArrayList<Admin> listaAdmins;
+  private ArrayList<Persona> listaPersonas;
 
   // CONSTRUCTORES
   public Biblioteca(){
     this.listaLibros = new ArrayList<Libro>();
-    this.listaAdmins = new ArrayList<Admin>();
-    this.listaUsuarios = new ArrayList<User>();
+    this.listaPersonas = new ArrayList<Persona>();
   }
 
   public Biblioteca(String nombre){
     this.nombre = nombre;
     this. listaLibros = new ArrayList<Libro>();
-    this.listaUsuarios = new ArrayList<User>();
-    this.listaAdmins = new ArrayList<Admin>();
+    this.listaPersonas = new ArrayList<Persona>();
   }
 
   public Biblioteca(Biblioteca biblioteca){
     this.nombre = biblioteca.getNombre();
     this.listaLibros = biblioteca.getListaLibros();
-    this.listaUsuarios = biblioteca.getListaUsuarios();
-    this.listaAdmins = biblioteca.getListaAdmins();
+    this.listaPersonas = biblioteca.getListaPersonas();
   }
 
   // GETTERS Y SETTERS
@@ -45,20 +41,12 @@ public class Biblioteca {
     this.listaLibros = lista;
   }
 
-  public ArrayList<User> getListaUsuarios(){
-    return listaUsuarios;
+  public ArrayList<Persona> getListaPersonas(){
+    return listaPersonas;
   }
 
-  public void setListaUsuarios(ArrayList<User> lista){
-    this.listaUsuarios = lista;
-  }
-
-  public ArrayList<Admin> getListaAdmins(){
-    return listaAdmins;
-  }
-
-  public void setListaAdmins(ArrayList<Admin> lista){
-    this.listaAdmins = lista;
+  public void setListaPersonas(ArrayList<Persona> lista){
+    this.listaPersonas = lista;
   }
 
   @Override
@@ -66,8 +54,7 @@ public class Biblioteca {
     return
     "NOMBRE: " + this.nombre +
     "\nLista libros: " + this.listaLibros +
-    "\nLista de usuarios: " + this.listaUsuarios +
-    "\nLista de administradores: " + this.listaAdmins;
+    "\nLista de personas: " + this.listaPersonas;
   }
 
   //METODOS
