@@ -60,13 +60,13 @@ public class Biblioteca {
   //METODOS
   public void mostrarLibros(){
     if(this.getListaLibros().size() > 0){
-      Tools.mensaje("pos", "mostrando todos los libros:", "");
+      Tools.mensaje("+", "mostrando todos los libros:", "");
       for(int i = 0; i < this.getListaLibros().size(); i ++){
         System.out.println(this.getListaLibros().get(i));
         Tools.br();
       }
     } else {
-      Tools.mensaje("neg", "esta biblioteca no dispone de ningún libro", "continuar");
+      Tools.mensaje("-", "esta biblioteca no dispone de ningún libro", "continuar");
     }
     Tools.continuar();
   }
@@ -90,10 +90,10 @@ public class Biblioteca {
             }
         }
       } else {
-        Tools.mensaje("neg", "lo sentimos, no hay ningún libro disponible","");
+        Tools.mensaje("-", "lo sentimos, no hay ningún libro disponible","");
       }
     } else {
-      Tools.mensaje("neg", "esta biblioteca no dispone de ningún libro","");
+      Tools.mensaje("-", "esta biblioteca no dispone de ningún libro","");
     }
     Tools.continuar();
   }
@@ -125,10 +125,10 @@ public class Biblioteca {
       }
     }
     if(!hayLibros){
-      Tools.mensaje("neg", "ningún usuario ha reservado ningún libro", "");
+      Tools.mensaje("-", "ningún usuario ha reservado ningún libro", "");
     }
     if(!hayUsuarios) {
-      Tools.mensaje("neg", "no hay usuarios registrados", "");
+      Tools.mensaje("-", "no hay usuarios registrados", "");
     }
     Tools.continuar();
   }
@@ -145,7 +145,7 @@ public class Biblioteca {
       }
     }
     if (!reservas) {
-      Tools.mensaje("neg", "ningún título tiene 0 reservas", "");
+      Tools.mensaje("-", "ningún título tiene 0 reservas", "");
     }
     Tools.continuar();
   }
@@ -162,7 +162,7 @@ public class Biblioteca {
         }
       }
       if(!found) {
-        Tools.mensaje("neg", "esta biblioteca no tiene ningún usuario", "");
+        Tools.mensaje("-", "esta biblioteca no tiene ningún usuario", "");
       } 
     }
     Tools.continuar();
@@ -180,7 +180,7 @@ public class Biblioteca {
         }
       }
       if(!found) {
-        Tools.mensaje("neg", "esta biblioteca no tiene ningún administrador", "");
+        Tools.mensaje("-", "esta biblioteca no tiene ningún administrador", "");
       }
     } 
     Tools.continuar();

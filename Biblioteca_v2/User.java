@@ -120,16 +120,16 @@ public class User extends Persona {
           if(Tools.confirmar()){
             this.getListaReservas().add(reserva);
             biblioteca.getListaLibros().get(posicion).setNumCopiasDisponibles(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() - 1);
-            Tools.mensaje("pos", "libro reservado", "continuar");
+            Tools.mensaje("+", "libro reservado", "continuar");
           }
         } else if(biblioteca.getListaLibros().get(posicion).getNumCopiasDisponibles() == 0 && !repetido){
-          Tools.mensaje("neg", "lo sentimos, no disponemos de copias disponibles para el libro " + biblioteca.getListaLibros().get(posicion).getTitulo(), "continuar");
+          Tools.mensaje("-", "lo sentimos, no disponemos de copias disponibles para el libro " + biblioteca.getListaLibros().get(posicion).getTitulo(), "continuar");
         } else if(repetido){
-          Tools.mensaje("neg", "usted ya dispone de una copia de este libro", "continuar");
+          Tools.mensaje("-", "usted ya dispone de una copia de este libro", "continuar");
         }
       }
     } else {
-      Tools.mensaje("neg", "usted ya tiene 5 libros reservados", "");
+      Tools.mensaje("-", "usted ya tiene 5 libros reservados", "");
       Tools.maxReservas();
     }
   }
@@ -146,7 +146,7 @@ public class User extends Persona {
             lista.get(i).setNumCopiasDisponibles(lista.get(i).getNumCopiasDisponibles() + 1);
             this.getListaReservas().remove(this.getListaReservas().get(posicion));
             i = lista.size();
-            Tools.mensaje("pos", "libro devuelto", "continuar");
+            Tools.mensaje("+", "libro devuelto", "continuar");
           }
         }
       }
@@ -161,7 +161,7 @@ public class User extends Persona {
         Tools.br();
       }
     } else {
-      Tools.mensaje("neg", "no tiene ningún libro reservado", "");
+      Tools.mensaje("-", "no tiene ningún libro reservado", "");
     }
     Tools.continuar();
   }

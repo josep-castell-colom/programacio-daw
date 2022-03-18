@@ -66,22 +66,24 @@ public abstract class Tools {
     System.out.println("\n" + firstUpperCase(mensaje) + "\n");
   }
 
-  public static void mensaje(String mensaje, String continuar){
+  public static void mensaje(String mensaje, String opt){
     br();
     System.out.println("\n" + firstUpperCase(mensaje) + ".\n");
-    if(continuar.equals("continuar")){
+    if(opt.equals("continuar")){
       continuar();
+    } else if (opt.equals("confirmar")){
+      confirmar();
     }
   }
 
-  public static void mensaje(String valor, String mensaje, String continuar){
+  public static void mensaje(String valor, String mensaje, String opt){
     br();
     switch(valor){
-      case "pos": System.out.println("\n[+] " + firstUpperCase(mensaje) + "\n");
+      case "+": System.out.println("\n[+] " + firstUpperCase(mensaje) + "\n");
       break;
-      case "neg": System.out.println("\n[-] " + firstUpperCase(mensaje) + "\n");
+      case "-": System.out.println("\n[-] " + firstUpperCase(mensaje) + "\n");
       break;
-      case "alert": System.out.println("\n[!] " + firstUpperCase(mensaje) + "\n");
+      case "!": System.out.println("\n[!] " + firstUpperCase(mensaje) + "\n");
       break;
       case "titulo":  if(mensaje.length() < 20){
                         System.out.println("\t\t\t" + mensaje.toUpperCase());
@@ -94,7 +96,7 @@ public abstract class Tools {
       case default: System.out.println("\n" + firstUpperCase(mensaje) + "\n");
     }
     br();
-    if(continuar.equals("continuar")){
+    if(opt.equals("continuar")){
       continuar();
     }
   }
@@ -110,7 +112,7 @@ public abstract class Tools {
         ok = true;
         out = true;
       } else if (opt.equalsIgnoreCase("no")){
-        mensaje("neg", "operación cancelada por el usuario", "");
+        mensaje("-", "operación cancelada por el usuario", "");
         ok = true;
         out = false;
       }
@@ -146,7 +148,7 @@ public abstract class Tools {
 
   public static void noEncontrar(int posicion){
     if(posicion == -1){
-      mensaje("neg", "lo sentimos, el libro no esta entre nuestros títulos", "continuar");
+      mensaje("-", "lo sentimos, el libro no esta entre nuestros títulos", "continuar");
     }
   }
 
@@ -164,7 +166,7 @@ public abstract class Tools {
                   break;
         case "3": continua = true;
         break;
-        case default: Tools.mensaje("alert", "introduce una de las opciones disponibles", "continuar");
+        case default: Tools.mensaje("!", "introduce una de las opciones disponibles", "continuar");
       }
     } while(!continua);
   }
@@ -181,7 +183,7 @@ public abstract class Tools {
       } else if (opt.equals("2")){
         ok = true;
       } else {
-        Tools.mensaje("alert", "introduce 1 o 2", "");
+        Tools.mensaje("!", "introduce 1 o 2", "");
       }
     }while(!ok);
     return out;
@@ -225,7 +227,7 @@ public abstract class Tools {
                   br();
                   System.out.println("Hasta pronto! ;)");
                   break;
-        default:  mensaje("alert", "por favor, introduce una de las opciones disponibles", "");
+        default:  mensaje("!", "por favor, introduce una de las opciones disponibles", "");
       }
     } while (Main.getOn());
   }
@@ -277,13 +279,13 @@ public abstract class Tools {
                   user.solicitarDatos();
                   biblioteca.getListaPersonas().add(user);
                   break;
-        case "12":Tools.mensaje("neg", "en construcción", ""); // Persona.eliminarPersona(biblioteca);
+        case "12":Tools.mensaje("-", "en construcción", ""); // Persona.eliminarPersona(biblioteca);
                   break;
         case "13":Admin admin = new Admin();
                   admin.solicitarDatos();
                   biblioteca.getListaPersonas().add(admin);
                   break;
-        case "14":Persona.buscarPersona(biblioteca);
+        case "14":Persona.eliminarPersona(biblioteca);
                   //Admin.eliminarAdmin(biblioteca);
                   break;
         case "15":biblioteca.mostrarUsuarios();
@@ -296,7 +298,7 @@ public abstract class Tools {
                   br();
                   System.out.println("Hasta pronto! ;)");
                   break;
-        default:  mensaje("alert", "por favor, introduce una de las opciones disponibles", "continuar");
+        default:  mensaje("!", "por favor, introduce una de las opciones disponibles", "continuar");
       }
     } while (Main.getOn());
   }

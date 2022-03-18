@@ -105,10 +105,10 @@ public abstract class Persona {
       }
     }
     if(!found && !valid){
-      Tools.mensaje("neg", "introduce un NIF válido", "continuar");
+      Tools.mensaje("-", "introduce un NIF válido", "continuar");
     }
     if(found && !valid){
-      Tools.mensaje("neg", "contraseña incorrecta", "");
+      Tools.mensaje("-", "contraseña incorrecta", "");
       Tools.repetirContraseña();
     }
     return pair;
@@ -144,21 +144,43 @@ public abstract class Persona {
       for(int i = 0; i < listaUsuarios.size() && posicion == -1; i ++){
         if(busqueda.equals(listaUsuarios.get(i).getEmail())){
           posicion = i;
-          Tools.mensaje("pos", "usuario encontrado", "continuar");
+          Tools.mensaje("+", "usuario encontrado", "continuar");
         }
       }
       for(int i = 0; i < listaAdmins.size() && posicion == -1; i ++){
         if(busqueda.equals(listaAdmins.get(i).getNif())){
           posicion = i;
-          Tools.mensaje("pos", "bibliotecario encontrado", "continuar");
+          Tools.mensaje("+", "bibliotecario encontrado", "continuar");
         }
       }
       if(posicion == -1){
         throw new CustomException(1);
       }
     }catch(CustomException exception){
-      Tools.mensaje("neg", exception.getMessage(), "continuar");
+      Tools.mensaje("-", exception.getMessage(), "continuar");
     }
     return posicion;
+  }
+
+  public static void eliminarPersona(Biblioteca biblioteca){
+    int posicion = buscarPersona(biblioteca);
+    if(posicion != -1){
+      if(Tools.checkType(biblioteca.getListaPersonas().get(posicion), User.class)){
+        User user = (User)biblioteca.getListaPersonas().get(posicion);
+        if(user.getListaReservas().size() > 0){
+          Tools.mensaje("-", "no se puede eliminar al usuario " + user.getNombre() + " porque tiene libros reservados", "continuar");
+        } else {
+          Tools.mensaje("!", "está a punto de eliminar al usuario " + user.getNombre() + " " + user.getApellidos(), "");
+          if(Tools.confirmar()){
+            biblioteca.getListaPersonas().remove(biblioteca.getListaPersonas().get(posicion));
+          }
+        }
+      } else {
+        Tools.mensaje("!", "está a punto de eliminar al bibliotecario " + biblioteca.getListaPersonas().get(posicion).getNombre() + " " + biblioteca.getListaPersonas().get(posicion).getApellidos());
+        if(Tools.confirmar()){
+          biblioteca.getListaPersonas().remove(biblioteca.getListaPersonas().get(posicion));
+        }
+      }
+    }
   }
 }

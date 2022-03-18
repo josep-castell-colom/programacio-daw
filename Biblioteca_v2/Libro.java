@@ -121,15 +121,15 @@ public class Libro {
       if(Tools.comprobarNum(copias) && copias.length()>0){
         int numCopias = Integer.parseInt(copias);
         if(numCopias < 1){
-          Tools.mensaje("alert", "el número de copias no puede ser inferior a 1", "continuar");
+          Tools.mensaje("!", "el número de copias no puede ser inferior a 1", "continuar");
         } else {
           Libro libro = new Libro(isbn, titulo, autor, editorial, numCopias);
           lista.add(libro);
           ok = true;
-          Tools.mensaje("pos", "libro añadido:\n" + libro, "continuar");
+          Tools.mensaje("+", "libro añadido:\n" + libro, "continuar");
         }
       } else {
-        Tools.mensaje("alert", "por favor, introduce un valor numérico", "continuar");
+        Tools.mensaje("!", "por favor, introduce un valor numérico", "continuar");
       }
     }while(!ok);
   }
@@ -142,13 +142,13 @@ public class Libro {
       System.out.println("Está a punto de eliminar el libro " + lista.get(posicion).getTitulo());
       if(Tools.confirmar()){
         lista.remove(lista.get(posicion));
-        Tools.mensaje("pos", "libro eliminado", "");
+        Tools.mensaje("+", "libro eliminado", "");
       } else {
-        Tools.mensaje("neg", "operación cancelada", "");
+        Tools.mensaje("-", "operación cancelada", "");
       }
       Tools.continuar();
     } else if (posicion != -1  && lista.get(posicion).getNumCopiasDisponibles() != lista.get(posicion).getNumCopias()){
-      Tools.mensaje("neg", "el libro no se puede eliminar porque tiene reservas", "continuar");
+      Tools.mensaje("-", "el libro no se puede eliminar porque tiene reservas", "continuar");
     }
   }
 
@@ -163,13 +163,13 @@ public class Libro {
     for(int i = 0; i < lista.size(); i ++){
       if(isbn.equals(lista.get(i).getIsbn())){
         posicion = i;
-        Tools.mensaje("pos", "libro encontrado:\n\n" + lista.get(i), "");
+        Tools.mensaje("+", "libro encontrado:\n\n" + lista.get(i), "");
         i = lista.size();
         encontrado = true;
       }
     }
     if(!encontrado){
-      Tools.mensaje("neg", "libro no encontrado", "");
+      Tools.mensaje("-", "libro no encontrado", "");
     }
     Tools.continuar();
     return posicion;
@@ -185,13 +185,13 @@ public class Libro {
     for(int i = 0; i < lista.size(); i ++){
       if(isbn.equals(lista.get(i).getLibroReservado().getIsbn())){
         posicion = i;
-        Tools.mensaje("pos", "libro encontrado:\n\n" + lista.get(i).getLibroReservado(), "");
+        Tools.mensaje("+", "libro encontrado:\n\n" + lista.get(i).getLibroReservado(), "");
         i = lista.size();
         encontrado = true;
       }
     }
     if(!encontrado){
-      Tools.mensaje("neg", "libro no encontrado", "");
+      Tools.mensaje("-", "libro no encontrado", "");
     }
     Tools.continuar();
     return posicion;
@@ -205,11 +205,11 @@ public class Libro {
     titulo = input.nextLine();
     for(int i = 0; i < lista.size(); i ++){
       if(titulo.equals(lista.get(i).getTitulo())){
-        Tools.mensaje("pos", "Libro encontrado:\n\n" + lista.get(i), "");
+        Tools.mensaje("+", "Libro encontrado:\n\n" + lista.get(i), "");
         Tools.br();
         i = lista.size();
       } else if(!titulo.equals(lista.get(i).getTitulo()) && i == lista.size() - 1){
-        Tools.mensaje("neg", "lo sentimos, el libro no está entre nuestros títulos", "");
+        Tools.mensaje("-", "lo sentimos, el libro no está entre nuestros títulos", "");
       }
     }
     Tools.continuar();
