@@ -125,4 +125,40 @@ public abstract class Persona {
         System.out.println("Edad");
         this.setEdad(Tools.prompt());
   }
+
+  public static int buscarPersona(Biblioteca biblioteca){
+    Tools.mensaje("titulo", "buscar usuario/admin", "");
+    System.out.println("Introduce correo electrónico (usuario) o NIF (admin)");
+    String busqueda = Tools.prompt();
+    int posicion = -1;
+    ArrayList<User> listaUsuarios = new ArrayList<User>();
+    ArrayList<Admin> listaAdmins = new ArrayList<Admin>();
+    for(int i = 0; i < biblioteca.getListaPersonas().size(); i ++){
+      if(Tools.checkType(biblioteca.getListaPersonas().get(i), User.class)){
+        listaUsuarios.add((User)biblioteca.getListaPersonas().get(i));
+      } else if (Tools.checkType(biblioteca.getListaPersonas().get(i), Admin.class)){
+        listaAdmins.add((Admin)biblioteca.getListaPersonas().get(i));
+      }
+    }
+    try{
+      for(int i = 0; i < listaUsuarios.size() && posicion == -1; i ++){
+        if(busqueda.equals(listaUsuarios.get(i).getEmail())){
+          posicion = i;
+          Tools.mensaje("pos", "usuario encontrado", "continuar");
+        }
+      }
+      for(int i = 0; i < listaAdmins.size() && posicion == -1; i ++){
+        if(busqueda.equals(listaAdmins.get(i).getNif())){
+          posicion = i;
+          Tools.mensaje("pos", "bibliotecario encontrado", "continuar");
+        }
+      }
+      if(posicion == -1){
+        throw new CustomException(1);
+      }
+    }catch(CustomException exception){
+      Tools.mensaje("neg", exception.getMessage(), "continuar");
+    }
+    return posicion;
+  }
 }

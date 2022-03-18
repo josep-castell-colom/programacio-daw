@@ -275,13 +275,15 @@ public abstract class Tools {
                   break;
         case "11":User user = new User();
                   user.solicitarDatos();
+                  biblioteca.getListaPersonas().add(user);
                   break;
         case "12":Tools.mensaje("neg", "en construcción", ""); // Persona.eliminarPersona(biblioteca);
                   break;
         case "13":Admin admin = new Admin();
                   admin.solicitarDatos();
+                  biblioteca.getListaPersonas().add(admin);
                   break;
-        case "14":
+        case "14":Persona.buscarPersona(biblioteca);
                   //Admin.eliminarAdmin(biblioteca);
                   break;
         case "15":biblioteca.mostrarUsuarios();
