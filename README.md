@@ -34,6 +34,8 @@ class Admin{
   - String NIF
   - String contraseña
   solicitarDatos()
+  reservarLibro()
+  devolverLibro()
 }
 class Biblioteca{
   - String nombre
