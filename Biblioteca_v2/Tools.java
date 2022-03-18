@@ -242,6 +242,8 @@ public abstract class Tools {
       System.out.println("6 - Ver sólo los libros disponibles");
       System.out.println("7 - Ver sólo los libros sin reservas");
       System.out.println("8 - Ver todos los libros reservados");
+      System.out.println("9 - Reservar libro");
+      System.out.println("10 - Devolver libro");
       System.out.println();
       System.out.println("\n\tGESTIONAR USUARIOS Y ADMINISTRADORES\n");
       System.out.println("11 - Añadir usuario");
@@ -251,7 +253,7 @@ public abstract class Tools {
       System.out.println("15 - Ver todos los usuarios");
       System.out.println("16 - Ver todos los administradores");
       System.out.println();
-      System.out.println("9 - Volver al menú principal");
+      System.out.println("19 - Volver al menú principal");
       System.out.println("0 - Salir");
       String opt = prompt();
       switch (opt){
@@ -286,7 +288,7 @@ public abstract class Tools {
                   break;
         case "16":biblioteca.mostrarAdmin();
                   break;
-        case "9": mainMenu(biblioteca);
+        case "19": mainMenu(biblioteca);
                   break;
         case "0": Main.setOn(false);
                   br();

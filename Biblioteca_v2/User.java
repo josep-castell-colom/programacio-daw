@@ -73,9 +73,9 @@ public class User extends Persona {
   @Override
   public String toString(){
     return
-    "NOMBRE:\t\t\t" + super.getNombre()+
-    "\nAPELLIDOS:\t\t" + super.getApellidos() +
-    "\nEDAD:\t\t\t" + super.getEdad() +
+    "NOMBRE:\t\t\t" + this.getNombre()+
+    "\nAPELLIDOS:\t\t" + this.getApellidos() +
+    "\nEDAD:\t\t\t" + this.getEdad() +
     "\nTELÉFONO:\t\t" + tel +
     "\nDIRECCIÓN:\t\t" + direccion +
     "\nCÓDIGO POSTAL:\t\t" + codigoPostal +
