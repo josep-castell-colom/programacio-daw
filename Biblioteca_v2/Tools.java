@@ -290,7 +290,7 @@ public abstract class Tools {
                   break;
         case "15":biblioteca.mostrarUsuarios();
                   break;
-        case "16":biblioteca.mostrarAdmin();
+        case "16":biblioteca.mostrarAdmins();
                   break;
         case "19": mainMenu(biblioteca);
                   break;

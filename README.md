@@ -35,6 +35,38 @@ class Admin{
   - String contraseña
   solicitarDatos()
 }
-Persona<|--User
-Persona<|--Admin
+class Biblioteca{
+  - String nombre
+  - ArrayList<Libro> listaLibros
+  - ArrayList<Persona> listaPersonas
+  mostrarLibros()
+  mostrarDisponibles()
+  mostrarLibrosReservados()
+  mostrarSinReservas()
+  mostrarUsuarios()
+  mostrarAdmins()
+}
+class Libro{
+  - String ISBN
+  - String titulo
+  - String autor
+  - String editorial
+  - int numCopias
+  - int numCopiasDisponibles
+  añadirLibro()
+  eliminarLibro()
+  buscarIsbn()
+  buscarTitulo()
+}
+class Reserva{
+  - Libro libroReservado
+  - Date fechaReserva
+}
+Persona <|-- User
+Persona <|-- Admin
+Biblioteca *-- Libro
+Biblioteca *-- Admin
+Biblioteca *-- User
+User o-- Reserva
+Reserva *-- Libro
 ```

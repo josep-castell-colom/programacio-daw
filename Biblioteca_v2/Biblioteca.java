@@ -168,7 +168,7 @@ public class Biblioteca {
     Tools.continuar();
   }
 
-  public void mostrarAdmin(){
+  public void mostrarAdmins(){
     if(this.getListaPersonas().size() > 0){
       boolean found = false;
       Tools.mensaje("titulo", "mostrando todos los administradores", "");
