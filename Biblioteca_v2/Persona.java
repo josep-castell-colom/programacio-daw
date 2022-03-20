@@ -131,24 +131,16 @@ public abstract class Persona {
     System.out.println("Introduce correo electrónico (usuario) o NIF (admin)");
     String busqueda = Tools.prompt();
     int posicion = -1;
-    ArrayList<User> listaUsuarios = new ArrayList<User>();
-    ArrayList<Admin> listaAdmins = new ArrayList<Admin>();
-    for(int i = 0; i < biblioteca.getListaPersonas().size(); i ++){
-      if(Tools.checkType(biblioteca.getListaPersonas().get(i), User.class)){
-        listaUsuarios.add((User)biblioteca.getListaPersonas().get(i));
-      } else if (Tools.checkType(biblioteca.getListaPersonas().get(i), Admin.class)){
-        listaAdmins.add((Admin)biblioteca.getListaPersonas().get(i));
-      }
-    }
+    Pair pair = Tools.splitPersonas(biblioteca);
     try{
-      for(int i = 0; i < listaUsuarios.size() && posicion == -1; i ++){
-        if(busqueda.equals(listaUsuarios.get(i).getEmail())){
+      for(int i = 0; i < pair.getListaUsers().size() && posicion == -1; i ++){
+        if(busqueda.equals(pair.getListaUsers().get(i).getEmail())){
           posicion = i;
           Tools.mensaje("+", "usuario encontrado", "continuar");
         }
       }
-      for(int i = 0; i < listaAdmins.size() && posicion == -1; i ++){
-        if(busqueda.equals(listaAdmins.get(i).getNif())){
+      for(int i = 0; i < pair.getListaAdmins().size() && posicion == -1; i ++){
+        if(busqueda.equals(pair.getListaAdmins().get(i).getNif())){
           posicion = i;
           Tools.mensaje("+", "bibliotecario encontrado", "continuar");
         }
@@ -159,7 +151,7 @@ public abstract class Persona {
     }catch(CustomException exception){
       Tools.mensaje("-", exception.getMessage(), "continuar");
     }
-    return posicion;
+    return posicion;    ////////////////////// NEED TO FIX POSITION. SEARCH RIGHT POSITION IN biblioteca.getListaPersonas()
   }
 
   public static void eliminarPersona(Biblioteca biblioteca){
@@ -179,6 +171,7 @@ public abstract class Persona {
         Tools.mensaje("!", "está a punto de eliminar al bibliotecario " + biblioteca.getListaPersonas().get(posicion).getNombre() + " " + biblioteca.getListaPersonas().get(posicion).getApellidos());
         if(Tools.confirmar()){
           biblioteca.getListaPersonas().remove(biblioteca.getListaPersonas().get(posicion));
+          Tools.mensaje("+", biblioteca.getListaPersonas().get(posicion).getNombre() + "eliminado", "continuar");
         }
       }
     }

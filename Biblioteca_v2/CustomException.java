@@ -15,6 +15,9 @@ public class CustomException extends Exception {
       case 1:
         mensaje = "usuario/bibliotecario no encontrado";
         break;
+      case 2:
+        mensaje = "ningún usuario/bibliotecario en la biblioteca";
+        break;
     }return mensaje;
   }
 }
