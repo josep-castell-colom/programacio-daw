@@ -183,4 +183,6 @@ public abstract class Persona {
       }
     }
   }
+
+  public boolean compararPersona(Persona persona);
 }
