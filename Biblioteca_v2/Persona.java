@@ -131,27 +131,38 @@ public abstract class Persona {
     System.out.println("Introduce correo electrónico (usuario) o NIF (admin)");
     String busqueda = Tools.prompt();
     int posicion = -1;
+    boolean found = false;
+    Persona persona = new Admin();
     Pair pair = Tools.splitPersonas(biblioteca);
     try{
-      for(int i = 0; i < pair.getListaUsers().size() && posicion == -1; i ++){
-        if(busqueda.equals(pair.getListaUsers().get(i).getEmail())){
-          posicion = i;
+      for(int i = 0; i < pair.getListaUsuarios().size() && !found; i ++){
+        if(busqueda.equals(pair.getListaUsuarios().get(i).getEmail())){
+          persona = pair.getListaUsuarios().get(i);
+          found = true;
           Tools.mensaje("+", "usuario encontrado", "continuar");
         }
       }
-      for(int i = 0; i < pair.getListaAdmins().size() && posicion == -1; i ++){
+      for(int i = 0; i < pair.getListaAdmins().size() && !found; i ++){
         if(busqueda.equals(pair.getListaAdmins().get(i).getNif())){
-          posicion = i;
+          found = true;
+          persona = pair.getListaAdmins().get(i);
           Tools.mensaje("+", "bibliotecario encontrado", "continuar");
         }
       }
-      if(posicion == -1){
+      if(!found){
         throw new CustomException(1);
       }
     }catch(CustomException exception){
       Tools.mensaje("-", exception.getMessage(), "continuar");
     }
-    return posicion;    ////////////////////// NEED TO FIX POSITION. SEARCH RIGHT POSITION IN biblioteca.getListaPersonas()
+    if(found){
+      for(int i = 0; i < biblioteca.getListaPersonas().size() && posicion == -1; i ++){
+        if(persona.compararPersona(biblioteca.getListaPersonas().get(i))){
+          posicion = i;
+        }
+      }
+    }
+    return posicion;
   }
 
   public static void eliminarPersona(Biblioteca biblioteca){
@@ -177,5 +188,11 @@ public abstract class Persona {
     }
   }
 
-  public boolean compararPersona(Persona persona);
+  public boolean compararPersona(Persona persona){
+    boolean found = false;
+    if(persona.getNombre().equals(this.getNombre()) && persona.getApellidos().equals(this.getApellidos()) && persona.getEdad().equals(this.getEdad())){
+      found = true;
+    }
+    return found;
+  }
 }

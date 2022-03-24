@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Pair {
   private Admin admin;
   private boolean valid;
-  private ArrayList<User> listaUsers;
+  private ArrayList<User> listaUsuarios;
   private ArrayList<Admin> listaAdmins;
 
   public Admin getAdmin() {
@@ -20,18 +20,20 @@ public class Pair {
   public void setValid(boolean valid) {
     this.valid = valid;
   }
-  public ArrayList<User> getListaUsers() {
-    return this.listaUsers;
+
+  public ArrayList<User> getListaUsuarios() {
+    return listaUsuarios;
   }
-  public void setListaUsers(ArrayList<User> listaUsers) {
-    this.listaUsers = listaUsers;
+
+  public void setListaUsuarios(ArrayList<User> listaUsuarios) {
+    this.listaUsuarios = listaUsuarios;
   }
+
   public ArrayList<Admin> getListaAdmins() {
-    return this.listaAdmins;
+    return listaAdmins;
   }
+
   public void setListaAdmins(ArrayList<Admin> listaAdmins) {
     this.listaAdmins = listaAdmins;
   }
-
-  
 }

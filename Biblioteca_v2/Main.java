@@ -78,5 +78,6 @@ public class Main {
     currentBiblioteca.getListaPersonas().add(admin1);
     currentAdmin = admin1;
     Tools.mainMenu(currentBiblioteca);
+    
   }
 }

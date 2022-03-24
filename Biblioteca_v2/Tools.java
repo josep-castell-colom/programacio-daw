@@ -197,23 +197,15 @@ public abstract class Tools {
   public static Pair splitPersonas(Biblioteca biblioteca){
     ArrayList<User> listaUsuarios = new ArrayList<User>();
     ArrayList<Admin> listaAdmins = new ArrayList<Admin>();
-    try{
-      if(biblioteca.getListaPersonas().size() > 0){
-        for(int i = 0; i < biblioteca.getListaPersonas().size(); i ++){
-          if(Tools.checkType(biblioteca.getListaPersonas().get(i), User.class)){
-            listaUsuarios.add((User)biblioteca.getListaPersonas().get(i));
-          } else if (Tools.checkType(biblioteca.getListaPersonas().get(i), Admin.class)){
-            listaAdmins.add((Admin)biblioteca.getListaPersonas().get(i));
-          }
-        }
-      } else {
-        throw new CustomException(2);
+    for(int i = 0; i < biblioteca.getListaPersonas().size(); i ++){
+      if(Tools.checkType(biblioteca.getListaPersonas().get(i), User.class)){
+        listaUsuarios.add((User)biblioteca.getListaPersonas().get(i));
+      } else if (Tools.checkType(biblioteca.getListaPersonas().get(i), Admin.class)){
+        listaAdmins.add((Admin)biblioteca.getListaPersonas().get(i));
       }
-    } catch (CustomException exception){
-      Tools.mensaje("-", exception.getMessage(), "continuar");
     }
     Pair pair = new Pair();
-    pair.setListaUsers(listaUsuarios);
+    pair.setListaUsuarios(listaUsuarios);
     pair.setListaAdmins(listaAdmins);
     return pair;
   }
