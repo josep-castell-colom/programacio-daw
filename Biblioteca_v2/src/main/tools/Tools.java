@@ -1,6 +1,14 @@
-package Biblioteca_v2;
+package tools;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import biblioteca.Admin;
+import biblioteca.Biblioteca;
+import biblioteca.Libro;
+import biblioteca.Main;
+import biblioteca.Pair;
+import biblioteca.Persona;
+import biblioteca.User;
 
 public abstract class Tools {
   public static Scanner input = new Scanner(System.in);

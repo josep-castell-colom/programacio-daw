@@ -1,5 +1,6 @@
-package Biblioteca_v2;
+package biblioteca;
 import java.util.Scanner;
+import tools.Tools;
 
 public class Admin extends Persona {
   public static Scanner input = new Scanner(System.in);

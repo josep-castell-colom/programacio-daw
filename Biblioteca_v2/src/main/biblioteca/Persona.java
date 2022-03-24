@@ -1,6 +1,8 @@
-package Biblioteca_v2;
+package biblioteca;
 import java.util.ArrayList;
 import java.util.Scanner;
+import tools.Tools;
+import tools.CustomException;
 
 public abstract class Persona {
   public static Scanner input = new Scanner(System.in);

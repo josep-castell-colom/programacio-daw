@@ -1,6 +1,7 @@
-package Biblioteca_v2;
+package biblioteca;
 import java.util.Scanner;
 import java.util.ArrayList;
+import tools.Tools;
 
 public class Libro {
   public static Scanner input = new Scanner(System.in);
