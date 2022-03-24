@@ -65,5 +65,16 @@ public class Admin extends Persona {
     System.out.println("Contraseña");
     this.setContraseña(Tools.prompt());
   }
+
+  public static void reservarLibro(Biblioteca biblioteca){
+    int posicion = Persona.buscarPersona(biblioteca);
+    if(Tools.checkType(biblioteca.getListaPersonas().get(posicion), User.class)){
+
+    }else{
+
+    }
+  }
+
+  
 }
 
