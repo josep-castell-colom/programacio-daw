@@ -131,33 +131,36 @@ public abstract class Persona {
     System.out.println("Introduce correo electrónico (usuario) o NIF (admin)");
     String busqueda = Tools.prompt();
     int posicion = -1;
-    ArrayList<User> listaUsuarios = new ArrayList<User>();
-    ArrayList<Admin> listaAdmins = new ArrayList<Admin>();
-    for(int i = 0; i < biblioteca.getListaPersonas().size(); i ++){
-      if(Tools.checkType(biblioteca.getListaPersonas().get(i), User.class)){
-        listaUsuarios.add((User)biblioteca.getListaPersonas().get(i));
-      } else if (Tools.checkType(biblioteca.getListaPersonas().get(i), Admin.class)){
-        listaAdmins.add((Admin)biblioteca.getListaPersonas().get(i));
-      }
-    }
+    boolean found = false;
+    Persona persona = new Admin();
+    Pair pair = Tools.splitPersonas(biblioteca);
     try{
-      for(int i = 0; i < listaUsuarios.size() && posicion == -1; i ++){
-        if(busqueda.equals(listaUsuarios.get(i).getEmail())){
-          posicion = i;
+      for(int i = 0; i < pair.getListaUsuarios().size() && !found; i ++){
+        if(busqueda.equals(pair.getListaUsuarios().get(i).getEmail())){
+          persona = pair.getListaUsuarios().get(i);
+          found = true;
           Tools.mensaje("+", "usuario encontrado", "continuar");
         }
       }
-      for(int i = 0; i < listaAdmins.size() && posicion == -1; i ++){
-        if(busqueda.equals(listaAdmins.get(i).getNif())){
-          posicion = i;
+      for(int i = 0; i < pair.getListaAdmins().size() && !found; i ++){
+        if(busqueda.equals(pair.getListaAdmins().get(i).getNif())){
+          found = true;
+          persona = pair.getListaAdmins().get(i);
           Tools.mensaje("+", "bibliotecario encontrado", "continuar");
         }
       }
-      if(posicion == -1){
+      if(!found){
         throw new CustomException(1);
       }
     }catch(CustomException exception){
       Tools.mensaje("-", exception.getMessage(), "continuar");
+    }
+    if(found){
+      for(int i = 0; i < biblioteca.getListaPersonas().size() && posicion == -1; i ++){
+        if(persona.compararPersona(biblioteca.getListaPersonas().get(i))){
+          posicion = i;
+        }
+      }
     }
     return posicion;
   }
@@ -184,5 +187,11 @@ public abstract class Persona {
     }
   }
 
-  public boolean compararPersona(Persona persona);
+  public boolean compararPersona(Persona persona){
+    boolean found = false;
+    if(persona.getNombre().equals(this.getNombre()) && persona.getApellidos().equals(this.getApellidos()) && persona.getEdad().equals(this.getEdad())){
+      found = true;
+    }
+    return found;
+  }
 }

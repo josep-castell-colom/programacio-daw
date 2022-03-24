@@ -1,4 +1,5 @@
 package Biblioteca_v2;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public abstract class Tools {
@@ -191,6 +192,22 @@ public abstract class Tools {
 
   public static boolean checkType(Object candidate, Class<?> type) {
     return type.isInstance(candidate);
+  }
+
+  public static Pair splitPersonas(Biblioteca biblioteca){
+    ArrayList<User> listaUsuarios = new ArrayList<User>();
+    ArrayList<Admin> listaAdmins = new ArrayList<Admin>();
+    for(int i = 0; i < biblioteca.getListaPersonas().size(); i ++){
+      if(Tools.checkType(biblioteca.getListaPersonas().get(i), User.class)){
+        listaUsuarios.add((User)biblioteca.getListaPersonas().get(i));
+      } else if (Tools.checkType(biblioteca.getListaPersonas().get(i), Admin.class)){
+        listaAdmins.add((Admin)biblioteca.getListaPersonas().get(i));
+      }
+    }
+    Pair pair = new Pair();
+    pair.setListaUsuarios(listaUsuarios);
+    pair.setListaAdmins(listaAdmins);
+    return pair;
   }
 
   public static void mainMenu(Biblioteca biblioteca){
